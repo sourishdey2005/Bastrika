@@ -3,15 +3,19 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Admin Dashboard | Bastrika</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Bastrika Admin</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Outfit:wght@300;400;600&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="assets/css/admin.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
     <div class="sidebar">
-        <h2>BASTRIKA ADMIN</h2>
-        <a href="dashboard.html">Dashboard</a>
+        <h2>BASTRIKA</h2>
+        <a href="dashboard.html" class="active">Dashboard</a>
         <a href="products.html">Products</a>
         <a href="orders.html">Orders</a>
         <a href="#" onclick="logout()">Logout</a>
@@ -19,7 +23,7 @@
 
     <main class="main-content">
         <h1>Dashboard Overview</h1>
-        <br>
+
         <div class="stats-grid" id="stats-grid">
             <div class="stat-card">
                 <h3>Total Orders</h3>
@@ -34,13 +38,14 @@
                 <p id="total-products">0</p>
             </div>
             <div class="stat-card">
-                <h3>Pending</h3>
+                <h3>Pending Orders</h3>
                 <p id="pending-orders">0</p>
             </div>
         </div>
 
-        <div style="background: white; padding: 2rem; border-radius: 8px;">
-            <h3>Sales Performance</h3>
+        <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: var(--shadow);">
+            <h3 style="margin-bottom: 1.5rem; color: var(--primary-maroon); font-family: 'Playfair Display', serif;">
+                Sales Performance</h3>
             <canvas id="salesChart"></canvas>
         </div>
     </main>
@@ -49,21 +54,32 @@
         const API_URL = 'http://localhost:5000/api';
         const token = localStorage.getItem('token');
 
-        if (!token) window.location.href = '../store/login.html';
+        // Check if logged in and is admin
+        if (!token) {
+            window.location.href = '../store/login.html';
+        }
 
         async function loadStats() {
             try {
                 const res = await fetch(`${API_URL}/admin/stats`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
+
+                if (res.status === 401 || res.status === 403) {
+                    logout();
+                    return;
+                }
+
                 const stats = await res.json();
                 document.getElementById('total-orders').innerText = stats.totalOrders;
-                document.getElementById('total-revenue').innerText = `₹${stats.totalRevenue}`;
+                document.getElementById('total-revenue').innerText = `₹${parseFloat(stats.totalRevenue).toLocaleString('en-IN')}`;
                 document.getElementById('total-products').innerText = stats.totalProducts;
                 document.getElementById('pending-orders').innerText = stats.pendingOrders;
 
                 initChart();
-            } catch (err) { console.error(err); }
+            } catch (err) {
+                console.error('Error loading stats:', err);
+            }
         }
 
         function initChart() {
@@ -73,17 +89,29 @@
                 data: {
                     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
                     datasets: [{
-                        label: 'Revenue',
+                        label: 'Revenue (₹)',
                         data: [12000, 19000, 3000, 5000, 20000, 30000],
                         borderColor: '#800000',
-                        tension: 0.1
+                        backgroundColor: 'rgba(128, 0, 0, 0.1)',
+                        fill: true,
+                        tension: 0.4
                     }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { position: 'top' }
+                    },
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
                 }
             });
         }
 
         function logout() {
             localStorage.removeItem('token');
+            localStorage.removeItem('user');
             window.location.href = '../store/login.html';
         }
 

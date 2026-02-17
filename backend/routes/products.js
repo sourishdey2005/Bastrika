@@ -20,6 +20,7 @@ router.get('/', async (req, res) => {
         const result = await db.query(query, params);
         res.json(result.rows);
     } catch (err) {
+        console.error('Database Error:', err);
         res.status(500).json({ message: 'Server error', error: err.message });
     }
 });
@@ -33,6 +34,7 @@ router.get('/:id', async (req, res) => {
         }
         res.json(result.rows[0]);
     } catch (err) {
+        console.error('Database Error:', err);
         res.status(500).json({ message: 'Server error', error: err.message });
     }
 });
@@ -47,6 +49,7 @@ router.post('/', authenticateToken, isAdmin, async (req, res) => {
         );
         res.status(201).json(result.rows[0]);
     } catch (err) {
+        console.error('Database Error:', err);
         res.status(500).json({ message: 'Server error', error: err.message });
     }
 });
@@ -62,6 +65,7 @@ router.put('/:id', authenticateToken, isAdmin, async (req, res) => {
         if (result.rows.length === 0) return res.status(404).json({ message: 'Product not found' });
         res.json(result.rows[0]);
     } catch (err) {
+        console.error('Database Error:', err);
         res.status(500).json({ message: 'Server error', error: err.message });
     }
 });
@@ -73,6 +77,7 @@ router.delete('/:id', authenticateToken, isAdmin, async (req, res) => {
         if (result.rows.length === 0) return res.status(404).json({ message: 'Product not found' });
         res.json({ message: 'Product deleted successfully' });
     } catch (err) {
+        console.error('Database Error:', err);
         res.status(500).json({ message: 'Server error', error: err.message });
     }
 });

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Orders | Bastrika Admin</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Outfit:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/admin.css">
+    <style>
+        .status-badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-processing {
+            background: #cce5ff;
+            color: #004085;
+        }
+
+        .status-shipped {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-delivered {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .status-cancelled {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        select.status-select {
+            padding: 0.4rem;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            outline: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sidebar">
+        <h2>BASTRIKA</h2>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="products.html">Products</a>
+        <a href="orders.html" class="active">Orders</a>
+        <a href="#" onclick="logout()">Logout</a>
+    </div>
+
+    <main class="main-content">
+        <h1>Customer Orders</h1>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Customer</th>
+                        <th>Total Price</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="orders-table-body">
+                    <!-- Orders will be loaded here -->
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script>
+        const API_URL = 'http://localhost:5000/api';
+        const token = localStorage.getItem('token');
+
+        if (!token) window.location.href = '../store/login.html';
+
+        async function loadOrders() {
+            try {
+                const res = await fetch(`${API_URL}/admin/orders`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const orders = await res.json();
+                const tbody = document.getElementById('orders-table-body');
+                tbody.innerHTML = '';
+
+                orders.forEach(o => {
+                    const date = new Date(o.created_at).toLocaleDateString('en-IN', {
+                        day: 'numeric', month: 'short', year: 'numeric'
+                    });
+
+                    tbody.innerHTML += `
+                        <tr>
+                            <td style="font-family: monospace; font-size: 0.8rem;">${o.id.substring(0, 8)}...</td>
+                            <td>
+                                <strong>${o.user_name || 'Guest'}</strong><br>
+                                <small>${o.user_email || ''}</small>
+                            </td>
+                            <td>₹${parseFloat(o.total_price).toLocaleString('en-IN')}</td>
+                            <td>
+                                <span class="status-badge status-${o.order_status.toLowerCase()}">${o.order_status}</span>
+                            </td>
+                            <td>${date}</td>
+                            <td>
+                                <select class="status-select" onchange="updateStatus('${o.id}', this.value)">
+                                    <option value="" disabled selected>Update Status</option>
+                                    <option value="Pending">Pending</option>
+                                    <option value="Processing">Processing</option>
+                                    <option value="Shipped">Shipped</option>
+                                    <option value="Delivered">Delivered</option>
+                                    <option value="Cancelled">Cancelled</option>
+                                </select>
+                            </td>
+                        </tr>
+                    `;
+                });
+            } catch (err) { console.error(err); }
+        }
+
+        async function updateStatus(id, newStatus) {
+            try {
+                const res = await fetch(`${API_URL}/admin/orders/${id}/status`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ order_status: newStatus })
+                });
+
+                if (res.ok) {
+                    loadOrders();
+                } else {
+                    const err = await res.json();
+                    alert(err.message);
+                }
+            } catch (err) { console.error(err); }
+        }
+
+        function logout() {
+            localStorage.removeItem('token');
+            window.location.href = '../store/login.html';
+        }
+
+        window.onload = loadOrders;
+    </script>
+</body>
+
+</html>

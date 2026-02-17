@@ -1,4 +1,3 @@
-<!-- Bastrika Home Page - Desktop -->
 <!DOCTYPE html>
 <html class="light" lang="en">
 
@@ -6,12 +5,17 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Bastrika | Luxury Bengali-Inspired Fashion</title>
+
+    <!-- External Libraries -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link
-        href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&family=Noto+Sans:wght@400;500;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Outfit:wght@100..900&display=swap"
         rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
+
     <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -21,372 +25,608 @@
                         "primary": "#6c1e1e",
                         "accent-gold": "#C6A75E",
                         "ivory": "#F8F4E3",
-                        "background-light": "#f8f6f6",
-                        "background-dark": "#1f1313",
+                        "background-light": "#fcfaf7",
+                        "background-dark": "#1f0f0f",
                     },
                     fontFamily: {
-                        "display": ["Noto Serif", "serif"],
-                        "sans": ["Noto Sans", "sans-serif"]
-                    },
-                    borderRadius: {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
+                        "display": ["Playfair Display", "serif"],
+                        "sans": ["Outfit", "sans-serif"]
                     },
                 },
             },
         }
     </script>
+
     <style>
         body {
-            font-family: 'Noto Sans', sans-serif;
+            font-family: 'Outfit', sans-serif;
+            overflow-x: hidden;
+            cursor: none;
         }
 
-        h1,
-        h2,
-        h3,
-        h4,
-        .serif-font {
-            font-family: 'Noto Serif', serif;
+        .hero-title {
+            font-family: 'Playfair Display', serif;
         }
 
-        .hover-lift {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        /* Custom Luxury Cursor */
+        #custom-cursor {
+            width: 20px;
+            height: 20px;
+            border: 1px solid #C6A75E;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000;
+            transition: transform 0.15s ease-out, background 0.3s ease;
         }
 
-        .hover-lift:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 10px 25px -5px rgba(108, 30, 30, 0.1);
+        #custom-cursor-dot {
+            width: 4px;
+            height: 4px;
+            background: #C6A75E;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 10001;
+        }
+
+        /* Custom Swiper Styles */
+        .swiper-pagination-bullet-active {
+            background: #C6A75E !important;
+        }
+
+        .hero-slider .swiper-slide {
+            height: 85vh;
+            overflow: hidden;
+        }
+
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .product-card-shine {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card-shine::after {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: 0.7s;
+            opacity: 0;
+        }
+
+        .product-card-shine:hover::after {
+            left: 100%;
+            top: 100%;
+            opacity: 1;
+        }
+
+        .category-overlay {
+            background: linear-gradient(to top, rgba(108, 30, 30, 0.9), transparent);
+        }
+
+        /* Parallax Background Scaling */
+        .parallax-bg {
+            transform: scale(1.1);
+            transition: transform 0.5s ease-out;
+        }
+
+        /* Lookbook Masonry */
+        .lookbook-item:nth-child(even) {
+            margin-top: 40px;
         }
     </style>
 </head>
 
-<body class="bg-background-light dark:bg-background-dark text-[#171212] dark:text-white">
+<body class="bg-background-light dark:bg-background-dark text-primary dark:text-ivory">
+
+    <!-- Custom Cursor -->
+    <div id="custom-cursor"></div>
+    <div id="custom-cursor-dot"></div>
+
     <!-- Top Navigation -->
-    <header
-        class="sticky top-0 z-50 bg-white/90 dark:bg-background-dark/90 backdrop-blur-md border-b border-primary/10">
+    <header class="fixed top-0 z-[100] w-full glass-nav border-b border-primary/5">
         <div class="max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between h-20">
-            <!-- Logo -->
-            <a href="index.html" class="flex items-center gap-2">
-                <span class="material-symbols-outlined text-primary text-3xl">auto_awesome</span>
-                <h1 class="text-2xl font-bold tracking-tighter text-primary serif-font">Bastrika</h1>
+            <a href="index.html" class="flex items-center gap-3 group">
+                <span
+                    class="material-symbols-outlined text-accent-gold text-3xl group-hover:rotate-180 transition-transform duration-700">settings_suggest</span>
+                <h1 class="text-3xl font-black tracking-tighter hero-title">BASTRIKA</h1>
             </a>
-            <!-- Main Nav -->
-            <nav class="hidden lg:flex items-center gap-10">
-                <a class="text-sm font-medium hover:text-primary transition-colors uppercase tracking-widest"
-                    href="products.html?cat=women">Women</a>
-                <a class="text-sm font-medium hover:text-primary transition-colors uppercase tracking-widest"
-                    href="products.html?cat=men">Men</a>
-                <a class="text-sm font-medium hover:text-primary transition-colors uppercase tracking-widest"
-                    href="products.html?cat=kids">Kids</a>
-                <a class="text-sm font-medium hover:text-primary transition-colors uppercase tracking-widest"
-                    href="brands.html">Brands</a>
-            </nav>
-            <!-- Actions -->
-            <div class="flex items-center gap-6">
-                <div class="hidden md:flex items-center bg-primary/5 rounded-full px-4 py-1.5 border border-primary/10">
-                    <span class="material-symbols-outlined text-primary/60 text-xl">search</span>
-                    <input
-                        class="bg-transparent border-none focus:ring-0 text-sm w-32 xl:w-48 placeholder:text-primary/40"
-                        placeholder="Search collection..." type="text" />
-                </div>
-                <a href="login.html" class="text-primary hover:bg-primary/5 p-2 rounded-full transition-all">
-                    <span class="material-symbols-outlined">person</span>
+
+            <nav class="hidden lg:flex items-center gap-12 text-[11px] font-bold uppercase tracking-[0.2em]">
+                <a class="hover:text-accent-gold transition-colors relative group" href="products.html?cat=women">
+                    Women
+                    <span
+                        class="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent-gold transition-all group-hover:w-full"></span>
                 </a>
-                <a href="cart.html" class="text-primary hover:bg-primary/5 p-2 rounded-full transition-all relative">
+                <a class="hover:text-accent-gold transition-colors relative group" href="products.html?cat=men">
+                    Men
+                    <span
+                        class="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent-gold transition-all group-hover:w-full"></span>
+                </a>
+                <a class="hover:text-accent-gold transition-colors relative group" href="products.html?cat=kids">
+                    Kids
+                    <span
+                        class="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent-gold transition-all group-hover:w-full"></span>
+                </a>
+                <a class="hover:text-accent-gold transition-colors relative group" href="brands.html">
+                    Brands
+                    <span
+                        class="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent-gold transition-all group-hover:w-full"></span>
+                </a>
+            </nav>
+
+            <div class="flex items-center gap-6">
+                <a href="login.html" class="hover:text-accent-gold transition-colors"><span
+                        class="material-symbols-outlined">person</span></a>
+                <a href="cart.html" class="relative hover:text-accent-gold transition-colors">
                     <span class="material-symbols-outlined">shopping_bag</span>
                     <span id="cart-count"
-                        class="absolute top-1 right-1 bg-accent-gold text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
+                        class="absolute -top-1 -right-1 bg-accent-gold text-primary text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
                 </a>
             </div>
         </div>
     </header>
 
-    <main>
-        <!-- Hero Section -->
-        <section class="relative h-[85vh] overflow-hidden">
-            <div class="absolute inset-0 bg-cover bg-center transition-transform duration-[10s] hover:scale-105"
-                style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.5)), url('https://lh3.googleusercontent.com/aida-public/AB6AXuAKRT6N4GwLZnPT09UpXCEvbu6Y_LJG_FBrzhfGnB9i3voYeWvU5b06FGvTVUw8bvmw4hWLTvf8q2laocgUM4dPZw7KbdNaSOuZ-KbuIX8ibaM1ndgDRBHX05PgOlAQI9u6XpHGYVFWNoIlwFMLUMh3BxLBHWB0IFhHaMwGktVx387tsog2Om7705_54YoWPaLbQJ1G80iFLYHTBnfcwYccz7LbPoUNGQi1PzvCmFV-JJ2JpgLtYxlTLEG-8RcKObnatC5T-C5Dno4');">
+    <main class="pt-20">
+        <!-- Hero Slider -->
+        <section class="hero-slider swiper">
+            <div class="swiper-wrapper">
+                <!-- Slide 1 -->
+                <div class="swiper-slide relative">
+                    <div class="absolute inset-0 bg-cover bg-center parallax-bg"
+                        style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.6)), url('https://lh3.googleusercontent.com/aida-public/AB6AXuAKRT6N4GwLZnPT09UpXCEvbu6Y_LJG_FBrzhfGnB9i3voYeWvU5b06FGvTVUw8bvmw4hWLTvf8q2laocgUM4dPZw7KbdNaSOuZ-KbuIX8ibaM1ndgDRBHX05PgOlAQI9u6XpHGYVFWNoIlwFMLUMh3BxLBHWB0IFhHaMwGktVx387tsog2Om7705_54YoWPaLbQJ1G80iFLYHTBnfcwYccz7LbPoUNGQi1PzvCmFV-JJ2JpgLtYxlTLEG-8RcKObnatC5T-C5Dno4');">
+                    </div>
+                    <div class="absolute inset-0 flex items-center justify-center text-center px-6">
+                        <div class="max-w-4xl space-y-8" data-aos="fade-up" data-aos-duration="1500">
+                            <span class="text-accent-gold uppercase tracking-[0.5em] text-sm block">A/W 2026
+                                Collection</span>
+                            <h2 class="hero-title text-6xl md:text-8xl text-ivory font-light italic leading-tight">
+                                Heritage Reimagined</h2>
+                            <p class="text-ivory/80 text-xl font-light max-w-2xl mx-auto">Discover the soul of Bengali
+                                textile art through modern luxury silhouettes.</p>
+                            <div class="pt-6">
+                                <a href="products.html"
+                                    class="inline-block bg-accent-gold text-primary px-12 py-5 rounded font-black tracking-widest uppercase text-xs transition-all hover:bg-ivory hover:scale-105 shadow-2xl">Shop
+                                    Masterpieces</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Slide 2 -->
+                <div class="swiper-slide relative">
+                    <div class="absolute inset-0 bg-cover bg-center parallax-bg"
+                        style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.6)), url('https://lh3.googleusercontent.com/aida-public/AB6AXuBqyx7qgvSS0AclnySV3si1v6Eky4KkuTah3wyokq9wm5hiiPZ9yAVYitMGOE8nzbMW-EjgyS7VUQ6xOE1giJu9YKCM-JgtmyzcYlMfvoEUGWxpwZyGWQtjP04jnJXYeqXU8NISxv239C-GvSW-9Kniexj3dwuweKrE6kjD0OwwqvwN3aL1P8zxxVQKYxACfAAkpxYkziOxqA6-2hlG3jruMXwastHroz72i03zdkfGWj7ySjFW-dcru6Efd0e5Sm1T1sUKisy-bV0');">
+                    </div>
+                    <div class="absolute inset-0 flex items-center justify-center text-center px-6">
+                        <div class="max-w-4xl space-y-8">
+                            <span class="text-accent-gold uppercase tracking-[0.5em] text-sm block">Handloom
+                                Special</span>
+                            <h2 class="hero-title text-6xl md:text-8xl text-ivory font-light italic leading-tight">The
+                                Golden Weave</h2>
+                            <p class="text-ivory/80 text-xl font-light max-w-2xl mx-auto">Pure mulberry silk woven with
+                                vintage gold threads by master artisans.</p>
+                            <div class="pt-6">
+                                <a href="products.html?cat=silk"
+                                    class="inline-block border-2 border-accent-gold text-accent-gold px-12 py-5 rounded font-black tracking-widest uppercase text-xs transition-all hover:bg-accent-gold hover:text-primary shadow-2xl">Explore
+                                    Silks</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="absolute inset-0 flex items-center justify-center text-center px-6 pb-24">
-                <div class="max-w-3xl space-y-8">
-                    <span class="text-white/90 uppercase tracking-[0.4em] text-sm md:text-base block">The Autumn
-                        Anthology</span>
-                    <h2 class="text-5xl md:text-7xl lg:text-8xl text-white serif-font font-light italic leading-tight">
-                        Where Tradition Meets <br /> Modern Commerce
-                    </h2>
-                    <p class="text-white/80 text-lg md:text-xl font-light max-w-xl mx-auto leading-relaxed">
-                        Discover the Elegant Serif collection of luxury Bengali-inspired fashion, meticulously
-                        handcrafted for the modern connoisseur.
-                    </p>
-                    <div class="pt-4 flex flex-col md:flex-row gap-4 justify-center">
-                        <a href="products.html"
-                            class="bg-primary hover:bg-primary/90 text-white px-10 py-4 rounded-lg font-bold tracking-widest uppercase text-sm transition-all shadow-xl text-center">
-                            Shop Collection
-                        </a>
+            <div class="swiper-pagination"></div>
+        </section>
+
+        <!-- Trend Report Section -->
+        <section class="py-32 bg-background-light dark:bg-background-dark overflow-hidden">
+            <div class="max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="relative group" data-aos="fade-right">
+                    <div class="overflow-hidden rounded-2xl shadow-2xl">
+                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqyx7qgvSS0AclnySV3si1v6Eky4KkuTah3wyokq9wm5hiiPZ9yAVYitMGOE8nzbMW-EjgyS7VUQ6xOE1giJu9YKCM-JgtmyzcYlMfvoEUGWxpwZyGWQtjP04jnJXYeqXU8NISxv239C-GvSW-9Kniexj3dwuweKrE6kjD0OwwqvwN3aL1P8zxxVQKYxACfAAkpxYkziOxqA6-2hlG3jruMXwastHroz72i03zdkfGWj7ySjFW-dcru6Efd0e5Sm1T1sUKisy-bV0"
+                            class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                            alt="Trend">
+                    </div>
+                    <div class="absolute top-10 right-10 bg-white/10 backdrop-blur-xl p-8 rounded-xl border border-white/20 shadow-2xl space-y-4 max-w-xs"
+                        data-aos="fade-up" data-aos-delay="300">
+                        <h4 class="hero-title text-2xl text-accent-gold">The Gold Silk Era</h4>
+                        <p class="text-white/80 text-sm leading-relaxed">Metallic threads meet hand-woven mulberry silk
+                            in this season's most advanced silhouette.</p>
                         <a href="#"
-                            class="bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/30 text-white px-10 py-4 rounded-lg font-bold tracking-widest uppercase text-sm transition-all text-center">
-                            Explore Heritage
-                        </a>
+                            class="text-accent-gold text-xs font-bold uppercase tracking-widest border-b border-accent-gold">Read
+                            Report</a>
+                    </div>
+                </div>
+                <div class="space-y-12" data-aos="fade-left">
+                    <span class="text-accent-gold uppercase tracking-[0.4em] text-xs font-bold block">Monthly
+                        Insights</span>
+                    <h3 class="hero-title text-5xl text-primary dark:text-ivory leading-tight">The Future of <br />
+                        Bengali Luxury</h3>
+                    <div class="space-y-8">
+                        <div class="flex gap-6 items-start">
+                            <span class="text-accent-gold text-3xl hero-title">01</span>
+                            <div>
+                                <h5 class="text-xl font-bold mb-2">Sustainable Weaves</h5>
+                                <p class="text-primary/60 dark:text-ivory/60 text-sm">Collaborating with local bio-dyers
+                                    to merge ancient techniques with eco-innovations.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 items-start">
+                            <span class="text-accent-gold text-3xl hero-title">02</span>
+                            <div>
+                                <h5 class="text-xl font-bold mb-2">Architectural Drapes</h5>
+                                <p class="text-primary/60 dark:text-ivory/60 text-sm">Traditional Panjabi and Saree
+                                    forms reimagined with 3D structural tailoring.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Featured Collections -->
-        <section class="py-24 px-6 lg:px-12 max-w-7xl mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
-                <div class="space-y-2">
-                    <h3 class="text-3xl md:text-4xl font-bold serif-font text-primary">Signature Collections</h3>
-                    <p class="text-primary/60 max-w-md">Each piece tells a story of centuries-old craftsmanship
-                        reimagined for today's elegance.</p>
-                </div>
-                <a class="group flex items-center gap-2 text-primary font-bold uppercase tracking-widest text-sm border-b-2 border-primary pb-1"
-                    href="products.html">
-                    View All Collections
-                    <span
-                        class="material-symbols-outlined group-hover:translate-x-1 transition-transform">trending_flat</span>
-                </a>
+        <!-- Signature Categories -->
+        <section class="py-32 px-6 lg:px-12 max-w-7xl mx-auto">
+            <div class="text-center mb-20" data-aos="fade-down">
+                <h3 class="hero-title text-4xl font-bold mb-4">The House Collections</h3>
+                <div class="w-24 h-0.5 bg-accent-gold mx-auto"></div>
             </div>
+
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Card 1 -->
-                <a href="products.html?cat=silk"
-                    class="group relative aspect-[3/4] overflow-hidden rounded-xl bg-ivory hover-lift block">
-                    <div class="absolute inset-0 bg-cover bg-center group-hover:scale-110 transition-transform duration-700"
-                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBqyx7qgvSS0AclnySV3si1v6Eky4KkuTah3wyokq9wm5hiiPZ9yAVYitMGOE8nzbMW-EjgyS7VUQ6xOE1giJu9YKCM-JgtmyzcYlMfvoEUGWxpwZyGWQtjP04jnJXYeqXU8NISxv239C-GvSW-9Kniexj3dwuweKrE6kjD0OwwqvwN3aL1P8zxxVQKYxACfAAkpxYkziOxqA6-2hlG3jruMXwastHroz72i03zdkfGWj7ySjFW-dcru6Efd0e5Sm1T1sUKisy-bV0');">
-                    </div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent"></div>
-                    <div class="absolute bottom-8 left-8 right-8 text-white">
-                        <h4 class="text-2xl serif-font mb-2">Handloom Silks</h4>
-                        <p class="text-white/70 text-sm mb-4">Pure mulberry silk woven with vintage gold threads.</p>
-                        <span
-                            class="text-xs uppercase tracking-widest font-bold flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                            Discover <span class="material-symbols-outlined text-sm">east</span>
-                        </span>
+                <!-- Women -->
+                <a href="products.html?cat=women"
+                    class="group relative aspect-[3/4] overflow-hidden rounded-xl bg-ivory shadow-xl"
+                    data-aos="fade-right" data-aos-delay="100">
+                    <img class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwV15ytUtwQxN7AOeDmYUUunV_oHYcy-CJPNYcs_3cKpK1ym27y0IU_1BfLzq7ECj3H-7NNcj9DOyGjL9mlVbXbru-fCfeifM_qeFx9NnyAU0NIPmOMr-J3lDc0HcOipMMf8lIBlhFLUcCaxPdxXc9sdxeIbDc0qfqCuNA5tuWL2HxrX07l_LgEGMmFnli3srVVt-02c-Fec7PeLXhCpxJS9mAZ3lRbz92ZGWWF3MLs9R9j2tLuH6TXyhRv4b-E8KCdUqRnpGCw-w"
+                        alt="Women">
+                    <div class="absolute inset-0 category-overlay flex flex-col justify-end p-8 text-ivory">
+                        <h4 class="text-3xl hero-title mb-2">The Empress</h4>
+                        <p class="text-ivory/70 text-sm italic font-light uppercase tracking-widest">Women's Couture</p>
                     </div>
                 </a>
-                <!-- Card 2 -->
-                <a href="products.html?cat=kantha"
-                    class="group relative aspect-[3/4] overflow-hidden rounded-xl bg-ivory hover-lift block">
-                    <div class="absolute inset-0 bg-cover bg-center group-hover:scale-110 transition-transform duration-700"
-                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCwV15ytUtwQxN7AOeDmYUUunV_oHYcy-CJPNYcs_3cKpK1ym27y0IU_1BfLzq7ECj3H-7NNcj9DOyGjL9mlVbXbru-fCfeifM_qeFx9NnyAU0NIPmOMr-J3lDc0HcOipMMf8lIBlhFLUcCaxPdxXc9sdxeIbDc0qfqCuNA5tuWL2HxrX07l_LgEGMmFnli3srVVt-02c-Fec7PeLXhCpxJS9mAZ3lRbz92ZGWWF3MLs9R9j2tLuH6TXyhRv4b-E8KCdUqRnpGCw-w');">
-                    </div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent"></div>
-                    <div class="absolute bottom-8 left-8 right-8 text-white">
-                        <h4 class="text-2xl serif-font mb-2">Royal Kantha</h4>
-                        <p class="text-white/70 text-sm mb-4">Masterpiece embroidery from the heart of Bengal.</p>
-                        <span
-                            class="text-xs uppercase tracking-widest font-bold flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                            Discover <span class="material-symbols-outlined text-sm">east</span>
-                        </span>
+                <!-- Men -->
+                <a href="products.html?cat=men"
+                    class="group relative aspect-[3/4] overflow-hidden rounded-xl bg-ivory shadow-xl" data-aos="fade-up"
+                    data-aos-delay="200">
+                    <img class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxg3Pv66SQJZpnq_76U632xTbuFI-lTZtR7lCh6T5dTTI-BrjOvR0XJ5wyDzgfvdbhkXoAHvvbMBQ6EnGcRH-GA5ZudA7QzAKX-ml1IhPcKI4SbA71e1L-VquoTuNABpQKn7UsQauYodzEaPVW2taBQZ6SQ2Wij9hEqrHAJWd0TO5dy5Xd6Z8EDd2gSxxok_h6hcqTrMO7L2f-rFmCbMjVovutaj2AST5oERzt5WiZ1whJOwwn5ndY3XIUaXtxe4p28eLMjHK-JlM"
+                        alt="Men">
+                    <div class="absolute inset-0 category-overlay flex flex-col justify-end p-8 text-ivory">
+                        <h4 class="text-3xl hero-title mb-2">The Aristocrat</h4>
+                        <p class="text-ivory/70 text-sm italic font-light uppercase tracking-widest">Men's Panjabi</p>
                     </div>
                 </a>
-                <!-- Card 3 -->
-                <a href="products.html?cat=modern"
-                    class="group relative aspect-[3/4] overflow-hidden rounded-xl bg-ivory hover-lift block">
-                    <div class="absolute inset-0 bg-cover bg-center group-hover:scale-110 transition-transform duration-700"
-                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDxg3Pv66SQJZpnq_76U632xTbuFI-lTZtR7lCh6T5dTTI-BrjOvR0XJ5wyDzgfvdbhkXoAHvvbMBQ6EnGcRH-GA5ZudA7QzAKX-ml1IhPcKI4SbA71e1L-VquoTuNABpQKn7UsQauYodzEaPVW2taBQZ6SQ2Wij9hEqrHAJWd0TO5dy5Xd6Z8EDd2gSxxok_h6hcqTrMO7L2f-rFmCbMjVovutaj2AST5oERzt5WiZ1whJOwwn5ndY3XIUaXtxe4p28eLMhHK-JlM');">
-                    </div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent"></div>
-                    <div class="absolute bottom-8 left-8 right-8 text-white">
-                        <h4 class="text-2xl serif-font mb-2">Modern Drapes</h4>
-                        <p class="text-white/70 text-sm mb-4">Traditional silhouettes reimagined for contemporary gala.
-                        </p>
-                        <span
-                            class="text-xs uppercase tracking-widest font-bold flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                            Discover <span class="material-symbols-outlined text-sm">east</span>
-                        </span>
+                <!-- Accessories -->
+                <a href="products.html?cat=accessories"
+                    class="group relative aspect-[3/4] overflow-hidden rounded-xl bg-ivory shadow-xl"
+                    data-aos="fade-left" data-aos-delay="300">
+                    <img class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUmL_mwh8NgC2W5BatcT4lRVzK7JdcAVP8GYaGakPinE6hxw7wFnBDqfkISkgPrbDZKsSr8-yNi_FnaNFXv3coEmtcdyXfUgVXxHRH8T-lNsl1vi7UpKye4orkws5QE1TS4KlLoff1ZhN3H1Pi2Drrv72iRQ7Yieg-GLpGzskFubuFEn7nx5AVy5yn69g6TRucWXvZ8lQbWsV_vXldSdavHKxxxV21ezKUiyncIXzzYvxVtgqHgY9LSmxm1aUhKCmg42IqdfiwmPk"
+                        alt="Accessories">
+                    <div class="absolute inset-0 category-overlay flex flex-col justify-end p-8 text-ivory">
+                        <h4 class="text-3xl hero-title mb-2">The Adornment</h4>
+                        <p class="text-ivory/70 text-sm italic font-light uppercase tracking-widest">Luxury Accents</p>
                     </div>
                 </a>
             </div>
         </section>
 
-        <!-- New Arrivals -->
-        <section class="bg-ivory/50 dark:bg-background-dark py-24">
-            <div class="max-w-7xl mx-auto px-6 lg:px-12">
-                <div class="text-center mb-16">
-                    <h3 class="text-4xl font-bold serif-font text-primary mb-4">New Arrivals</h3>
-                    <div class="w-24 h-0.5 bg-accent-gold mx-auto"></div>
+        <!-- The Bastrika Lookbook (Masonry) -->
+        <section class="py-32 px-6 lg:px-12">
+            <div class="text-center mb-24" data-aos="fade-up">
+                <span class="text-accent-gold uppercase tracking-[0.5em] text-xs block mb-4">Visual Journal</span>
+                <h3 class="hero-title text-6xl text-primary dark:text-ivory">The Lookbook</h3>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="lookbook-item group relative overflow-hidden rounded-xl aspect-[3/5]" data-aos="fade-up">
+                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwV15ytUtwQxN7AOeDmYUUunV_oHYcy-CJPNYcs_3cKpK1ym27y0IU_1BfLzq7ECj3H-7NNcj9DOyGjL9mlVbXbru-fCfeifM_qeFx9NnyAU0NIPmOMr-J3lDc0HcOipMMf8lIBlhFLUcCaxPdxXc9sdxeIbDc0qfqCuNA5tuWL2HxrX07l_LgEGMmFnli3srVVt-02c-Fec7PeLXhCpxJS9mAZ3lRbz92ZGWWF3MLs9R9j2tLuH6TXyhRv4b-E8KCdUqRnpGCw-w"
+                        class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                        alt="Lookbook">
+                    <div
+                        class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-8 text-center">
+                        <p class="text-ivory font-light italic">"Morning Mist on the Ganges" — Collection No. 12</p>
+                    </div>
                 </div>
-                <div class="grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12">
-                    <!-- Product Item -->
-                    <div class="group cursor-pointer">
-                        <div class="relative aspect-[3/4] overflow-hidden rounded-lg mb-4 bg-white">
-                            <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUmL_mwh8NgC2W5BatcT4lRVzK7JdcAVP8GYaGakPinE6hxw7wFnBDqfkISkgPrbDZKsSr8-yNi_FnaNFXv3coEmtcdyXfUgVXxHRH8T-lNsl1vi7UpKye4orkws5QE1TS4KlLoff1ZhN3H1Pi2Drrv72iRQ7Yieg-GLpGzskFubuFEn7nx5AVy5yn69g6TRucWXvZ8lQbWsV_vXldSdavHKxxxV21ezKUiyncIXzzYvxVtgqHgY9LSmxm1aUhKCmg42IqdfiwmPk" />
-                            <button
-                                class="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-sm text-primary py-2.5 rounded opacity-0 group-hover:opacity-100 transition-opacity font-bold text-xs uppercase tracking-widest">
-                                Quick View
-                            </button>
-                            <span
-                                class="absolute top-4 left-4 bg-primary text-white text-[10px] px-3 py-1 rounded-full font-bold uppercase tracking-widest">New</span>
-                        </div>
-                        <h5 class="serif-font text-lg text-primary/90">Crimson Heritage Silk</h5>
-                        <p class="text-primary/60 text-sm mb-1">Authentic Murshidabad Silk</p>
-                        <p class="font-bold text-primary">₹495.00</p>
-                    </div>
-                    <!-- Product Item -->
-                    <div class="group cursor-pointer">
-                        <div class="relative aspect-[3/4] overflow-hidden rounded-lg mb-4 bg-white">
-                            <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBO9XZnzqnSu0UGpDgC3uTqGAkGdskVTK748rappem5UbyWHanUr5gmvO5t3FIv4jNsFZ1U5WjDmjVv4FMnEPIZTSg2hHDoUqVcoxqBjylI2n9eh1xrxyOqsmYP9QpW4WQPkpibQfavo0vd0r-eDJ8Wi_3e6kwuFaBecgsy8I3Jren1qs1Kex2W99Zi0akO03m6ngLhASvm9SDN9SrzPDw0bXaFYeSzbmarPd5PKjLhO2DGj2LEikJkz9ja4Sg2B4YpC9uQA4L6y2s" />
-                            <button
-                                class="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-sm text-primary py-2.5 rounded opacity-0 group-hover:opacity-100 transition-opacity font-bold text-xs uppercase tracking-widest">
-                                Quick View
-                            </button>
-                        </div>
-                        <h5 class="serif-font text-lg text-primary/90">Ivory Organza Drape</h5>
-                        <p class="text-primary/60 text-sm mb-1">Hand-painted Flora</p>
-                        <p class="font-bold text-primary">₹320.00</p>
-                    </div>
-                    <!-- Product Item -->
-                    <div class="group cursor-pointer">
-                        <div class="relative aspect-[3/4] overflow-hidden rounded-lg mb-4 bg-white">
-                            <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDhx8mUBTKleQfUvjVkLBGfjOCgiBestaCvfmuM7iwlP8ouhCnlJZ-_WJCrGywFAHacjB4ZkzUHYXmSzaK7g0aTKlKvU19uYyQ2YUASa9blMVAnOmKIpJP4xMm4hAIhGaKxoT4c4eG_g-sz_GEqmWnHkyDJ27F6jm92gPY1A7irVNNif2QDce6gaG6CCutjrnYVpI9CSLMg9siW8avAWPgazZ9blNCNX5VI_ZK4C3ak9PTg_Qy4aLqOrMPZYASoku1gGITbf8zW4g" />
-                            <button
-                                class="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-sm text-primary py-2.5 rounded opacity-0 group-hover:opacity-100 transition-opacity font-bold text-xs uppercase tracking-widest">
-                                Quick View
-                            </button>
-                        </div>
-                        <h5 class="serif-font text-lg text-primary/90">Emerald Kantha Wrap</h5>
-                        <p class="text-primary/60 text-sm mb-1">Heavy Stitch Embroidery</p>
-                        <p class="font-bold text-primary">₹185.00</p>
-                    </div>
-                    <!-- Product Item -->
-                    <div class="group cursor-pointer">
-                        <div class="relative aspect-[3/4] overflow-hidden rounded-lg mb-4 bg-white">
-                            <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0J_7JPFLkOqJm5FadUw2Q1S0kZw8cVcx6YhUwJRsm6YqW9Sz4f4lLYElmb_Vml3USsupOzLdg0MnsCP20RAWNbBQyrJFsgTgeO54Iw3ydwRQ0ogj4-2Uer3iwNFGxTiY0i8CC4NKXhSxlXsMpKOTZ_6sNoZ-lA1GKDrruVNxLTiVwFtaE-IdYy5uebGp7sVw0zvD7ffzf4m0sSRSjWJtknrYHK87Y_cXNPLbFO9F5tcbp6-9hnoWfjEikiwiJ7zjcA_3wck0RDlU" />
-                            <button
-                                class="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-sm text-primary py-2.5 rounded opacity-0 group-hover:opacity-100 transition-opacity font-bold text-xs uppercase tracking-widest">
-                                Quick View
-                            </button>
-                        </div>
-                        <h5 class="serif-font text-lg text-primary/90">Midnight Jamdani</h5>
-                        <p class="text-primary/60 text-sm mb-1">Fine Muslin Blend</p>
-                        <p class="font-bold text-primary">₹275.00</p>
-                    </div>
+                <div class="lookbook-item group relative overflow-hidden rounded-xl aspect-[3/4]" data-aos="fade-up"
+                    data-aos-delay="100">
+                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxg3Pv66SQJZpnq_76U632xTbuFI-lTZtR7lCh6T5dTTI-BrjOvR0XJ5wyDzgfvdbhkXoAHvvbMBQ6EnGcRH-GA5ZudA7QzAKX-ml1IhPcKI4SbA71e1L-VquoTuNABpQKn7UsQauYodzEaPVW2taBQZ6SQ2Wij9hEqrHAJWd0TO5dy5Xd6Z8EDd2gSxxok_h6hcqTrMO7L2f-rFmCbMjVovutaj2AST5oERzt5WiZ1whJOwwn5ndY3XIUaXtxe4p28eLMhHK-JlM"
+                        class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                        alt="Lookbook">
+                    <div
+                        class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-8 text-center text-ivory italic">
+                        Royal Atrium Series</div>
+                </div>
+                <div class="lookbook-item group relative overflow-hidden rounded-xl aspect-[3/5]" data-aos="fade-up"
+                    data-aos-delay="200">
+                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUmL_mwh8NgC2W5BatcT4lRVzK7JdcAVP8GYaGakPinE6hxw7wFnBDqfkISkgPrbDZKsSr8-yNi_FnaNFXv3coEmtcdyXfUgVXxHRH8T-lNsl1vi7UpKye4orkws5QE1TS4KlLoff1ZhN3H1Pi2Drrv72iRQ7Yieg-GLpGzskFubuFEn7nx5AVy5yn69g6TRucWXvZ8lQbWsV_vXldSdavHKxxxV21ezKUiyncIXzzYvxVtgqHgY9LSmxm1aUhKCmg42IqdfiwmPk"
+                        class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                        alt="Lookbook">
+                    <div
+                        class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-8 text-center text-ivory italic">
+                        Accessory Showcase</div>
+                </div>
+                <div class="lookbook-item group relative overflow-hidden rounded-xl aspect-[3/4]" data-aos="fade-up"
+                    data-aos-delay="300">
+                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBO9XZnzqnSu0UGpDgC3uTqGAkGdskVTK748rappem5UbyWHanUr5gmvO5t3FIv4jNsFZ1U5WjDmjVv4FMnEPIZTSg2hHDoUqVcoxqBjylI2n9eh1xrxyOqsmYP9QpW4WQPkpibQfavo0vd0r-eDJ8Wi_3e6kwuFaBecgsy8I3Jren1qs1Kex2W99Zi0akO03m6ngLhASvm9SDN9SrzPDw0bXaFYeSzbmarPd5PKjLhO2DGj2LEikJkz9ja4Sg2B4YpC9uQA4L6y2s"
+                        class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                        alt="Lookbook">
+                    <div
+                        class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-8 text-center text-ivory italic">
+                        Artisan Workshop Vibe</div>
                 </div>
             </div>
         </section>
 
-        <!-- Testimonial Slider (Simplified) -->
-        <section class="py-24 bg-white">
-            <div class="max-w-4xl mx-auto px-6 text-center">
-                <span class="material-symbols-outlined text-accent-gold text-4xl mb-6">format_quote</span>
-                <p class="text-2xl md:text-3xl serif-font italic text-primary leading-relaxed mb-8">
-                    "Bastrika isn't just clothing; it's a bridge to my roots. The quality of the Handloom Silk I
-                    received surpassed every luxury brand I've ever worn. Absolutely ethereal."
-                </p>
-                <div class="flex items-center justify-center gap-4">
-                    <div class="w-12 h-12 rounded-full bg-primary/10 overflow-hidden">
+        <!-- Featured Products Carousel (10 Items) -->
+        <section class="bg-primary py-32 overflow-hidden">
+            <div
+                class="max-w-7xl mx-auto px-6 lg:px-12 mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6">
+                <div data-aos="fade-right">
+                    <span class="text-accent-gold uppercase tracking-[0.4em] text-xs font-bold block mb-4">Curated
+                        Selection</span>
+                    <h3 class="hero-title text-4xl text-ivory">Featured Masterpieces</h3>
+                </div>
+                <div class="flex gap-4" data-aos="fade-left">
+                    <button
+                        class="swiper-prev-btn p-3 border border-ivory/20 rounded-full text-ivory hover:bg-accent-gold hover:text-primary transition-all">
+                        <span class="material-symbols-outlined">west</span>
+                    </button>
+                    <button
+                        class="swiper-next-btn p-3 border border-ivory/20 rounded-full text-ivory hover:bg-accent-gold hover:text-primary transition-all">
+                        <span class="material-symbols-outlined">east</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="featured-swiper swiper max-w-[1440px] px-6 lg:px-32">
+                <div class="swiper-wrapper" id="featured-products-list">
+                    <!-- Dynamic Products (10 items) will load here -->
+                    <div class="swiper-slide text-ivory/20 animate-pulse text-center py-20">Loading luxury...</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Artisan Spotlight -->
+        <section class="py-32 bg-ivory">
+            <div class="max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+                <div class="relative" data-aos="zoom-in">
+                    <div class="aspect-square rounded-2xl overflow-hidden shadow-2xl ring-8 ring-white">
                         <img class="w-full h-full object-cover"
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNIQfuCJNW1qcLxc4OmTGug9zugqGQ4tDjm4mL7qxoFrPCy7mNgJ9LMEM7r75mjcKzvefVhWsoWTSyDJOzrwqjiSG1GAg-QqHKlkwaCXtk4Je8Hnan2IOzTzQIIk8Lb5GK7b_qjWDFyls5McPShafK6-Mx5b96raAEzFYOEOSjUUVfOMRHoZWcteXnXzE9ony8he4BMMRgawmbzFuWaP-2m0pH3s6-WRAvIOae_tqe49z0h170Nq8HxRE7IY4AOyEhkycBSfY_F_E" />
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBO9XZnzqnSu0UGpDgC3uTqGAkGdskVTK748rappem5UbyWHanUr5gmvO5t3FIv4jNsFZ1U5WjDmjVv4FMnEPIZTSg2hHDoUqVcoxqBjylI2n9eh1xrxyOqsmYP9QpW4WQPkpibQfavo0vd0r-eDJ8Wi_3e6kwuFaBecgsy8I3Jren1qs1Kex2W99Zi0akO03m6ngLhASvm9SDN9SrzPDw0bXaFYeSzbmarPd5PKjLhO2DGj2LEikJkz9ja4Sg2B4YpC9uQA4L6y2s"
+                            alt="Artisan">
+                    </div>
+                    <div class="absolute -bottom-10 -right-10 w-64 h-64 bg-primary rounded-2xl flex items-center justify-center p-8 text-ivory border-8 border-white hidden md:flex"
+                        data-aos="fade-up" data-aos-delay="400">
+                        <p class="text-xl serif font-light italic leading-relaxed">"Every stitch preserves the soul of
+                            our ancestors."</p>
+                    </div>
+                </div>
+                <div class="space-y-8" data-aos="fade-left">
+                    <span class="text-accent-gold uppercase tracking-[0.4em] text-xs font-bold block">Artisan
+                        Spotlight</span>
+                    <h3 class="hero-title text-5xl text-primary leading-tight">Preserving Centuries of Craft</h3>
+                    <p class="text-primary/70 text-lg leading-relaxed">Our textiles are more than just fabric; they are
+                        living histories. We collaborate with master weavers in tiny villages across Bengal to bring you
+                        authentic craftsmanship that no machine can replicate.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonial Section -->
+        <section class="py-32 bg-background-dark text-ivory overflow-hidden relative">
+            <div class="absolute top-0 right-0 opacity-10 pointer-events-none">
+                <span class="material-symbols-outlined text-[400px] -mr-32 -mt-32">eco</span>
+            </div>
+            <div class="max-w-4xl mx-auto px-6 text-center relative z-10" data-aos="fade-up">
+                <span class="material-symbols-outlined text-accent-gold text-6xl mb-8">format_quote</span>
+                <p class="text-3xl md:text-5xl hero-title italic leading-relaxed mb-12">
+                    "Bastrika isn't just clothing; it's a bridge to my roots. The quality of the Handloom Silk I
+                    received surpassed every luxury brand I've ever worn."
+                </p>
+                <div class="flex items-center justify-center gap-6">
+                    <div class="w-16 h-16 rounded-full overflow-hidden border-2 border-accent-gold">
+                        <img class="w-full h-full object-cover"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNIQfuCJNW1qcLxc4OmTGug9zugqGQ4tDjm4mL7qxoFrPCy7mNgJ9LMEM7r75mjcKzvefVhWsoWTSyDJOzrwqjiSG1GAg-QqHKlkwaCXtk4Je8Hnan2IOzTzQIIk8Lb5GK7b_qjWDFyls5McPShafK6-Mx5b96raAEzFYOEOSjUUVfOMRHoZWcteXnXzE9ony8he4BMMRgawmbzFuWaP-2m0pH3s6-WRAvIOae_tqe49z0h170Nq8HxRE7IY4AOyEhkycBSfY_F_E"
+                            alt="Testimonial">
                     </div>
                     <div class="text-left">
-                        <p class="font-bold text-primary text-sm uppercase tracking-widest">Aditi Mukherji</p>
-                        <p class="text-primary/50 text-xs">Fashion Archivist, London</p>
+                        <p class="text-lg font-bold text-accent-gold uppercase tracking-widest">Aditi Mukherji</p>
+                        <p class="text-ivory/50 text-sm">Fashion Archivist, London</p>
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <!-- Newsletter -->
-        <section class="bg-primary py-20 px-6 overflow-hidden relative">
-            <div class="absolute top-0 right-0 opacity-10 pointer-events-none">
-                <span class="material-symbols-outlined text-[300px] -mr-32 -mt-32">eco</span>
-            </div>
-            <div class="max-w-4xl mx-auto text-center text-white relative z-10">
-                <h3 class="text-3xl md:text-4xl serif-font mb-4">Join the Bastrika Circle</h3>
-                <p class="text-white/70 mb-10 max-w-lg mx-auto">Be the first to explore our limited heritage collections
-                    and receive invitations to private previews.</p>
-                <form class="flex flex-col md:flex-row gap-4 max-w-lg mx-auto">
-                    <input
-                        class="flex-1 bg-white/10 border border-white/20 rounded-lg px-6 py-4 focus:ring-accent-gold focus:border-accent-gold text-white placeholder:text-white/40"
-                        placeholder="Your email address" type="email" />
-                    <button
-                        class="bg-accent-gold hover:bg-accent-gold/90 text-primary px-8 py-4 rounded-lg font-bold uppercase tracking-widest text-sm transition-all shadow-lg whitespace-nowrap">
-                        Subscribe
-                    </button>
-                </form>
             </div>
         </section>
     </main>
 
     <!-- Footer -->
-    <footer class="bg-background-light dark:bg-background-dark border-t border-primary/5 pt-20 pb-10">
-        <div class="max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
-            <div class="space-y-6">
-                <div class="flex items-center gap-2">
-                    <span class="material-symbols-outlined text-primary text-2xl">auto_awesome</span>
-                    <h4 class="text-xl font-bold tracking-tighter text-primary serif-font">Bastrika</h4>
-                </div>
-                <p class="text-primary/60 text-sm leading-relaxed">
-                    Celebrating the soul of Bengal through exquisite craftsmanship and timeless luxury. Every stitch a
-                    legacy, every drape a masterpiece.
-                </p>
+    <footer class="bg-primary text-ivory pt-32 pb-12 px-6 lg:px-20 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-16 relative z-10">
+            <div class="space-y-8">
+                <h2 class="text-4xl font-black tracking-tighter hero-title text-accent-gold">BASTRIKA</h2>
+                <p class="text-sm text-ivory/60 leading-relaxed uppercase tracking-widest italic">Preserving the soul of
+                    Bengali textile art through modern luxury design.</p>
                 <div class="flex gap-4">
-                    <a class="w-10 h-10 rounded-full border border-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all"
-                        href="#">
-                        <span class="material-symbols-outlined text-lg">public</span>
-                    </a>
-                    <a class="w-10 h-10 rounded-full border border-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all"
-                        href="#">
-                        <span class="material-symbols-outlined text-lg">camera</span>
-                    </a>
-                    <a class="w-10 h-10 rounded-full border border-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all"
-                        href="#">
-                        <span class="material-symbols-outlined text-lg">share</span>
-                    </a>
+                    <a href="#"
+                        class="size-10 border border-ivory/20 rounded-full flex items-center justify-center hover:bg-accent-gold hover:text-primary transition-all"><span
+                            class="material-symbols-outlined text-sm">public</span></a>
+                    <a href="#"
+                        class="size-10 border border-ivory/20 rounded-full flex items-center justify-center hover:bg-accent-gold hover:text-primary transition-all"><span
+                            class="material-symbols-outlined text-sm">eco</span></a>
+                    <a href="#"
+                        class="size-10 border border-ivory/20 rounded-full flex items-center justify-center hover:bg-accent-gold hover:text-primary transition-all"><span
+                            class="material-symbols-outlined text-sm">location_on</span></a>
                 </div>
             </div>
-            <div>
-                <h6 class="font-bold text-primary uppercase tracking-widest text-xs mb-6">Collections</h6>
-                <ul class="space-y-4 text-sm text-primary/60">
-                    <li><a class="hover:text-primary transition-colors" href="products.html?cat=silk">Silk Sarees</a>
-                    </li>
-                    <li><a class="hover:text-primary transition-colors" href="products.html?cat=jamdani">Cotton
-                            Jamdani</a></li>
-                    <li><a class="hover:text-primary transition-colors" href="products.html?cat=lehengas">Embroidered
-                            Lehengas</a></li>
-                    <li><a class="hover:text-primary transition-colors" href="products.html?cat=wraps">Heritage
-                            Wraps</a></li>
-                </ul>
+            <div class="space-y-6">
+                <h4 class="text-xs font-black uppercase tracking-[0.3em] text-accent-gold">Collections</h4>
+                <nav class="flex flex-col gap-4 text-xs font-medium text-ivory/60">
+                    <a class="hover:text-ivory transition-colors uppercase tracking-widest"
+                        href="products.html?cat=women">Women's Couture</a>
+                    <a class="hover:text-ivory transition-colors uppercase tracking-widest"
+                        href="products.html?cat=men">Men's Aristocracy</a>
+                    <a class="hover:text-ivory transition-colors uppercase tracking-widest"
+                        href="products.html?cat=silk">Handloom Silks</a>
+                    <a class="hover:text-ivory transition-colors uppercase tracking-widest"
+                        href="products.html?cat=heritage">Heritage Wraps</a>
+                </nav>
             </div>
-            <div>
-                <h6 class="font-bold text-primary uppercase tracking-widest text-xs mb-6">The House</h6>
-                <ul class="space-y-4 text-sm text-primary/60">
-                    <li><a class="hover:text-primary transition-colors" href="#">Our Heritage</a></li>
-                    <li><a class="hover:text-primary transition-colors" href="#">Sustainability</a></li>
-                    <li><a class="hover:text-primary transition-colors" href="#">Artisan Stories</a></li>
-                </ul>
+            <div class="space-y-6">
+                <h4 class="text-xs font-black uppercase tracking-[0.3em] text-accent-gold">Social Feed</h4>
+                <div class="grid grid-cols-3 gap-2">
+                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwV15ytUtwQxN7AOeDmYUUunV_oHYcy-CJPNYcs_3cKpK1ym27y0IU_1BfLzq7ECj3H-7NNcj9DOyGjL9mlVbXbru-fCfeifM_qeFx9NnyAU0NIPmOMr-J3lDc0HcOipMMf8lIBlhFLUcCaxPdxXc9sdxeIbDc0qfqCuNA5tuWL2HxrX07l_LgEGMmFnli3srVVt-02c-Fec7PeLXhCpxJS9mAZ3lRbz92ZGWWF3MLs9R9j2tLuH6TXyhRv4b-E8KCdUqRnpGCw-w"
+                        class="aspect-square object-cover rounded" alt="Social">
+                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxg3Pv66SQJZpnq_76U632xTbuFI-lTZtR7lCh6T5dTTI-BrjOvR0XJ5wyDzgfvdbhkXoAHvvbMBQ6EnGcRH-GA5ZudA7QzAKX-ml1IhPcKI4SbA71e1L-VquoTuNABpQKn7UsQauYodzEaPVW2taBQZ6SQ2Wij9hEqrHAJWd0TO5dy5Xd6Z8EDd2gSxxok_h6hcqTrMO7L2f-rFmCbMjVovutaj2AST5oERzt5WiZ1whJOwwn5ndY3XIUaXtxe4p28eLMhHK-JlM"
+                        class="aspect-square object-cover rounded" alt="Social">
+                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUmL_mwh8NgC2W5BatcT4lRVzK7JdcAVP8GYaGakPinE6hxw7wFnBDqfkISkgPrbDZKsSr8-yNi_FnaNFXv3coEmtcdyXfUgVXxHRH8T-lNsl1vi7UpKye4orkws5QE1TS4KlLoff1ZhN3H1Pi2Drrv72iRQ7Yieg-GLpGzskFubuFEn7nx5AVy5yn69g6TRucWXvZ8lQbWsV_vXldSdavHKxxxV21ezKUiyncIXzzYvxVtgqHgY9LSmxm1aUhKCmg42IqdfiwmPk"
+                        class="aspect-square object-cover rounded" alt="Social">
+                </div>
             </div>
-            <div>
-                <h6 class="font-bold text-primary uppercase tracking-widest text-xs mb-6">Client Services</h6>
-                <ul class="space-y-4 text-sm text-primary/60">
-                    <li><a class="hover:text-primary transition-colors" href="#">Contact Us</a></li>
-                    <li><a class="hover:text-primary transition-colors" href="#">Sizing Guide</a></li>
-                    <li><a class="hover:text-primary transition-colors" href="#">Shipping & Returns</a></li>
-                </ul>
+            <div class="space-y-6">
+                <h4 class="text-xs font-black uppercase tracking-[0.3em] text-accent-gold">Stay Connected</h4>
+                <p class="text-xs text-ivory/50 uppercase tracking-widest">Join the Circle for private previews.</p>
+                <form class="flex border-b border-ivory/30 pb-2">
+                    <input class="bg-transparent border-none focus:ring-0 text-xs w-full placeholder:text-ivory/20"
+                        placeholder="EMAIL ADDRESS" type="email">
+                    <button class="text-accent-gold"><span
+                            class="material-symbols-outlined">arrow_forward</span></button>
+                </form>
             </div>
         </div>
         <div
-            class="max-w-7xl mx-auto px-6 lg:px-12 pt-8 border-t border-primary/5 flex flex-col md:flex-row justify-between items-center gap-6">
-            <p class="text-xs text-primary/40">© 2026 Bastrika Luxury. All Rights Reserved.</p>
-            <div class="flex gap-8 text-xs text-primary/40 uppercase tracking-widest">
-                <a class="hover:text-primary" href="#">Privacy Policy</a>
-                <a class="hover:text-primary" href="#">Terms of Service</a>
+            class="max-w-7xl mx-auto mt-32 pt-12 border-t border-ivory/10 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] uppercase tracking-[0.3em] text-ivory/30">
+            <p>© 2026 Bastrika Luxury. All Rights Reserved.</p>
+            <div class="flex gap-12 font-bold">
+                <a href="#" class="hover:text-ivory">Privacy</a>
+                <a href="#" class="hover:text-ivory">Terms</a>
             </div>
         </div>
     </footer>
 
+    <!-- Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="assets/js/api.js"></script>
+
     <script>
-        window.onload = () => {
-            api.updateCartCount();
-        };
+        // Custom Luxury Cursor Logic
+        const cursor = document.getElementById('custom-cursor');
+        const dot = document.getElementById('custom-cursor-dot');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX - 10 + 'px';
+            cursor.style.top = e.clientY - 10 + 'px';
+            dot.style.left = e.clientX - 2 + 'px';
+            dot.style.top = e.clientY - 2 + 'px';
+        });
+
+        document.addEventListener('mousedown', () => cursor.style.transform = 'scale(0.8)');
+        document.addEventListener('mouseup', () => cursor.style.transform = 'scale(1)');
+
+        // Parallax Scaling Logic
+        window.addEventListener('scroll', () => {
+            const scroll = window.pageYOffset;
+            document.querySelectorAll('.parallax-bg').forEach(bg => {
+                bg.style.transform = `scale(${1.1 + scroll / 10000})`;
+            });
+        });
+
+        // Initialize AOS
+        AOS.init({
+            once: true,
+            duration: 800
+        });
+
+        // Initialize Hero Swiper
+        const heroSwiper = new Swiper('.hero-slider', {
+            loop: true,
+            autoplay: {
+                delay: 6000,
+                disableOnInteraction: false
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true
+            },
+            effect: 'fade',
+            fadeEffect: {
+                crossFade: true
+            }
+        });
+
+        // Initialize Featured Products Carousel
+        const featuredSwiper = new Swiper('.featured-swiper', {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            navigation: {
+                nextEl: '.swiper-next-btn',
+                prevEl: '.swiper-prev-btn',
+            },
+            breakpoints: {
+                640: {
+                    slidesPerView: 2
+                },
+                1024: {
+                    slidesPerView: 3
+                },
+                1280: {
+                    slidesPerView: 4
+                },
+            }
+        });
+
+        async function initPage() {
+            try {
+                api.updateCartCount();
+
+                // Fetch up to 10 products for the carousel
+                const products = await api.getProducts();
+                const container = document.getElementById('featured-products-list');
+
+                if (!container || products.length === 0) return;
+
+                const latestTen = products.slice(0, 10);
+
+                container.innerHTML = latestTen.map(p => `
+                    <div class="swiper-slide h-auto">
+                        <div class="product-card group cursor-pointer h-full bg-white dark:bg-background-dark p-4 rounded-xl shadow-2xl transition-all hover:-translate-y-2 product-card-shine" onclick="window.location.href='product.html?id=${p.id}'">
+                            <div class="relative aspect-[3/4] overflow-hidden rounded-lg mb-6 shadow-xl">
+                                <img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" src="${p.image_url}" alt="${p.name}">
+                                <div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                    <button class="bg-ivory text-primary px-6 py-2 rounded text-[10px] font-black uppercase tracking-widest shadow-xl">View Details</button>
+                                </div>
+                            </div>
+                            <div class="space-y-3">
+                                <p class="text-[10px] font-black uppercase tracking-[0.3em] text-accent-gold">${p.category || 'Imperial'}</p>
+                                <h3 class="hero-title text-xl text-primary dark:text-ivory leading-tight line-clamp-1">${p.name}</h3>
+                                <div class="flex items-center justify-between pt-2 border-t border-primary/5">
+                                    <span class="text-xl font-black text-primary dark:text-accent-gold">₹${p.price.toLocaleString('en-IN')}</span>
+                                    <button class="text-primary/40 hover:text-accent-gold transition-colors" onclick="event.stopPropagation(); api.addToCart('${p.id}', '${p.name}', ${p.price}, '${p.image_url}')">
+                                        <span class="material-symbols-outlined">add_shopping_cart</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+
+                featuredSwiper.update();
+
+            } catch (err) {
+                console.error('Error initializing page:', err);
+            }
+        }
+
+        window.onload = initPage;
     </script>
 </body>
 
