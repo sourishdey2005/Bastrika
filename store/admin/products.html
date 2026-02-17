@@ -1,126 +1,69 @@
-<!-- Seller Product Management - Desktop -->
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Products | Bastrika Seller</title>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-        rel="stylesheet" />
-    <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "primary": "#b30f0f",
-                        "background-light": "#f8f6f6",
-                        "background-dark": "#221010",
-                    },
-                    fontFamily: { "display": ["Inter"] },
-                },
-            },
-        }
-    </script>
+    <meta charset="UTF-8">
+    <title>Manage Products | Admin</title>
+    <link rel="stylesheet" href="assets/css/admin.css">
 </head>
 
-<body class="bg-background-light font-display text-slate-800 antialiased min-h-screen">
-    <nav
-        class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-primary/10 px-8 py-4 flex items-center justify-between">
-        <div class="flex items-center gap-8">
-            <h1 class="text-2xl font-bold tracking-tight text-primary uppercase">Bastrika</h1>
-            <div class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-500">
-                <a class="hover:text-primary transition-colors" href="dashboard.html">Dashboard</a>
-                <a class="text-primary border-b-2 border-primary pb-1" href="products.html">Products</a>
-                <a class="hover:text-primary transition-colors" href="orders.html">Orders</a>
-            </div>
-        </div>
-        <div class="flex items-center gap-4">
-            <div class="h-8 w-8 rounded-full overflow-hidden border border-primary/20">
-                <span class="material-symbols-outlined text-primary p-1">person</span>
-            </div>
-        </div>
-    </nav>
+<body>
+    <div class="sidebar">
+        <h2>BASTRIKA ADMIN</h2>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="products.html">Products</a>
+        <a href="orders.html">Orders</a>
+        <a href="#" onclick="logout()">Logout</a>
+    </div>
 
-    <main class="max-w-7xl mx-auto px-8 py-10">
-        <header class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
-            <div>
-                <h2 class="text-3xl font-bold text-slate-900">Product Management</h2>
-                <p class="text-slate-500 mt-1">Manage your luxury apparel inventory and listings.</p>
-            </div>
-            <a href="edit-product.html"
-                class="bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-lg font-semibold flex items-center gap-2 transition-all shadow-lg shadow-primary/20">
-                <span class="material-symbols-outlined">add</span>
-                Add New Product
-            </a>
-        </header>
-
-        <div class="bg-white rounded-xl shadow-sm border border-primary/5 overflow-hidden">
-            <div class="overflow-x-auto">
-                <table class="w-full text-left border-collapse">
-                    <thead>
-                        <tr class="bg-primary/5 border-b border-primary/10">
-                            <th class="px-6 py-4 text-xs font-bold text-slate-600 uppercase tracking-wider">Product</th>
-                            <th class="px-6 py-4 text-xs font-bold text-slate-600 uppercase tracking-wider">Price</th>
-                            <th class="px-6 py-4 text-xs font-bold text-slate-600 uppercase tracking-wider">Stock</th>
-                            <th class="px-6 py-4 text-xs font-bold text-slate-600 uppercase tracking-wider">Category
-                            </th>
-                            <th class="px-6 py-4 text-xs font-bold text-slate-600 uppercase tracking-wider text-right">
-                                Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="products-table-body" class="divide-y divide-slate-100">
-                        <!-- Items load here -->
-                    </tbody>
-                </table>
-            </div>
+    <main class="main-content">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h1>Products</h1>
+            <button class="btn-primary"
+                style="padding: 0.5rem 1rem; cursor: pointer; background: var(--admin-primary); color: white; border: none; border-radius: 4px;"
+                onclick="showAddForm()">+ Add Product</button>
         </div>
+
+        <table id="products-table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="products-body">
+                <!-- Rows injected here -->
+            </tbody>
+        </table>
     </main>
 
-    <script src="../assets/js/api.js"></script>
     <script>
-        async function loadProducts() {
-            try {
-                const products = await api.getProducts();
-                const tbody = document.getElementById('products-table-body');
+        const API_URL = 'http://localhost:5000/api';
+        const token = localStorage.getItem('token');
 
-                tbody.innerHTML = products.map(p => `
-                    <tr class="group hover:bg-primary/5 transition-colors cursor-pointer">
-                        <td class="px-6 py-4">
-                            <div class="flex items-center gap-4">
-                                <div class="h-12 w-12 rounded-lg bg-slate-100 overflow-hidden flex-shrink-0 border border-slate-200">
-                                    <img class="h-full w-full object-cover" src="${p.image_url}" alt="${p.name}">
-                                </div>
-                                <div class="font-semibold text-slate-900">${p.name}</div>
-                            </div>
-                        </td>
-                        <td class="px-6 py-4 text-sm font-semibold text-slate-900">₹${p.price}</td>
-                        <td class="px-6 py-4">
-                            <span class="px-2.5 py-1 rounded-full text-xs font-semibold ${p.stock > 10 ? 'bg-emerald-100 text-emerald-700' : 'bg-orange-100 text-orange-700'}">
-                                ${p.stock > 0 ? `In Stock (${p.stock})` : 'Out of Stock'}
-                            </span>
-                        </td>
-                        <td class="px-6 py-4 text-sm text-slate-600">${p.category || 'N/A'}</td>
-                        <td class="px-6 py-4 text-right">
-                            <div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                <a href="edit-product.html?id=${p.id}" class="p-2 text-slate-400 hover:text-primary hover:bg-primary/10 rounded-lg transition-all">
-                                    <span class="material-symbols-outlined text-[20px]">edit</span>
-                                </a>
-                                <button class="p-2 text-slate-400 hover:text-primary hover:bg-primary/10 rounded-lg transition-all">
-                                    <span class="material-symbols-outlined text-[20px]">delete</span>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                `).join('');
-            } catch (err) {
-                console.error(err);
-            }
+        async function loadProducts() {
+            const res = await fetch(`${API_URL}/products`);
+            const products = await res.json();
+            const body = document.getElementById('products-body');
+            body.innerHTML = products.map(p => `
+                <tr>
+                    <td>${p.name}</td>
+                    <td>₹${p.price}</td>
+                    <td>${p.stock}</td>
+                    <td>
+                        <button onclick="editProduct('${p.id}')">Edit</button>
+                    </td>
+                </tr>
+            `).join('');
         }
+
+        function logout() {
+            localStorage.removeItem('token');
+            window.location.href = '../store/login.html';
+        }
+
         window.onload = loadProducts;
     </script>
 </body>
