@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Checkout | Bastrika</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<!-- Utility Top Bar -->
+<div class="utility-bar">
+    <div class="container" style="display: flex; justify-content: flex-end; align-items: center;">
+        <a href="#">GREENCARD</a>
+        <a href="#">GIFT CARD</a>
+        <a href="#">STORE LOCATOR</a>
+        <a href="#">TRACK ORDER</a>
+        <a href="#">CONTACT</a>
+        <a href="#">ENTIRE COLLECTION</a>
+        <div style="margin-left: 2rem; font-weight: 800; color: var(--primary);">STORE MODE</div>
+    </div>
+</div>
+
+<!-- Top Promo Bar -->
+<div
+    style="background: var(--text); color: var(--white); text-align: center; padding: 0.6rem; font-size: 0.8rem; letter-spacing: 1.5px; font-weight: 600;">
+    ALL DISCOUNTS ARE INCLUSIVE OF GST RATE CUT BENEFITS | FREE SHIPPING ON ORDERS ABOVE 1999
+</div>
+
+<nav id="main-nav">
+    <div class="container">
+        <a href="index.html" class="logo">BASTRIKA</a>
+        <ul class="nav-links">
+            <li><a href="products.html?cat=women">Women</a></li>
+            <li><a href="products.html?cat=men">Men</a></li>
+            <li><a href="products.html?cat=kids">Kids</a></li>
+            <li><a href="products.html?cat=home">Home & Living</a></li>
+            <li><a href="brands.html">Brands</a></li>
+            <li><a href="products.html?cat=sale" style="color: var(--primary); font-weight: 800;">SALE</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="container" style="max-width: 600px; margin-top: 5rem;">
+    <h2>Shipping Information</h2>
+    <br>
+    <form id="checkout-form">
+        <input type="text" id="full_name" placeholder="Full Name" required
+            style="width:100%; padding:1rem; margin-bottom:1rem;">
+        <input type="text" id="phone" placeholder="Phone Number" required
+            style="width:100%; padding:1rem; margin-bottom:1rem;">
+        <textarea id="full_address" placeholder="Complete Address" required
+            style="width:100%; padding:1rem; margin-bottom:1rem;"></textarea>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <input type="text" id="city" placeholder="City" required style="padding:1rem;">
+            <input type="text" id="pincode" placeholder="Pincode" required style="padding:1rem;">
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Place Order</button>
+    </form>
+</div>
+
+<footer style="background: var(--bg); border-top: 1px solid var(--border); padding-top: 4rem; margin-top: 8rem;">
+    <div class="container" style="text-align: center; font-size: 0.8rem; opacity: 0.6;">
+        <p>&copy; 2026 Bastrika Fashion. All Rights Reserved.</p>
+    </div>
+</footer>
+
+<script src="assets/js/api.js"></script>
+<script>
+    document.getElementById('checkout-form').onsubmit = async (e) => {
+        e.preventDefault();
+        const token = localStorage.getItem('token');
+        if (!token) { alert('Please login first'); location.href = 'login.html'; return; }
+
+        const cart = api.getCart();
+        const total = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+
+        // In a real app, you'd first save the address and get an ID. 
+        // For this demo, we'll assume address creation or just send the data.
+        // Simplified: We'll send the address info in the order request (requires backend tweak or dummy ID)
+
+        try {
+            const res = await fetch('http://localhost:5000/api/orders', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    address_id: '88888888-8888-8888-8888-888888888888', // Dummy for demo if not using address table flow
+                    cart_items: cart,
+                    total_price: total
+                })
+            });
+            const data = await res.json();
+            if (data.order_id) {
+                alert('Order placed successfully!');
+                localStorage.removeItem('cart');
+                location.href = 'order-success.html';
+            } else {
+                alert(data.message);
+            }
+        } catch (err) {
+            alert('Checkout failed');
+        }
+    };
+</script>
+</body>
+
+</html>

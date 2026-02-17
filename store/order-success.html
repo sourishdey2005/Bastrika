@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Masterpiece Reserved | Bastrika Luxury</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&family=Noto+Sans:wght@400;500;600&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#6c1e1e",
+                        "accent-gold": "#C6A75E",
+                        "background-light": "#f8f6f6",
+                    },
+                    fontFamily: {
+                        "display": ["Noto Serif", "serif"],
+                        "sans": ["Noto Sans", "sans-serif"]
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Noto Sans', sans-serif;
+        }
+
+        .serif-font {
+            font-family: 'Noto Serif', serif;
+        }
+    </style>
+</head>
+
+<body class="bg-background-light text-[#171212] flex flex-col min-h-screen">
+    <!-- Header -->
+    <header class="bg-white/80 backdrop-blur-md border-b border-primary/10">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-center">
+            <a href="index.html" class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary text-2xl">auto_awesome</span>
+                <h1 class="text-xl font-bold tracking-tighter text-primary serif-font">Bastrika</h1>
+            </a>
+        </div>
+    </header>
+
+    <main class="flex-1 flex items-center justify-center p-6">
+        <div class="max-w-2xl w-full text-center space-y-8">
+            <div class="flex justify-center">
+                <div
+                    class="size-24 rounded-full bg-primary/5 flex items-center justify-center border border-primary/10">
+                    <span class="material-symbols-outlined text-primary text-5xl">check_circle</span>
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                <span class="text-accent-gold uppercase tracking-[0.4em] text-xs font-bold">Transaction Complete</span>
+                <h2 class="text-4xl md:text-5xl serif-font italic text-primary">Masterpiece Reserved</h2>
+                <div class="w-16 h-0.5 bg-accent-gold mx-auto"></div>
+                <p class="text-primary/60 text-sm md:text-base font-light italic max-w-md mx-auto leading-relaxed">
+                    Thank you for choosing Bastrika. Your selection is being meticulously prepared for its journey to
+                    you. A confirmation has been sent to your email.
+                </p>
+            </div>
+
+            <div class="pt-8 flex flex-col items-center gap-6">
+                <a href="index.html"
+                    class="bg-primary hover:bg-primary/95 text-white px-12 py-4 rounded-xl font-bold tracking-widest uppercase text-xs transition-all shadow-lg active:scale-[0.98]">
+                    Continue Your Journey
+                </a>
+                <a href="#"
+                    class="text-xs font-bold uppercase tracking-[0.2em] text-accent-gold hover:text-primary transition-colors border-b border-accent-gold pb-1">
+                    Track Reserved Order
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="py-10 text-center text-[10px] uppercase tracking-widest text-primary/40">
+        © 2026 Bastrika Luxury. All Rights Reserved.
+    </footer>
+
+    <script src="assets/js/api.js"></script>
+    <script>
+        window.onload = () => {
+            api.updateCartCount();
+        };
+    </script>
+</body>
+
+</html>

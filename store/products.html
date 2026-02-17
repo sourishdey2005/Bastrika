@@ -1,0 +1,263 @@
+<!-- Product Listing Page - Desktop -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Heritage Collection | Bastrika</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#bd0f0f",
+                        "background-light": "#fdfaf7",
+                        "background-dark": "#221010",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        .product-card:hover .quick-add-btn {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .quick-add-btn {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease-in-out;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark text-[#181111] dark:text-white font-display">
+    <!-- Top Navigation Bar -->
+    <header
+        class="sticky top-0 z-50 w-full bg-background-light/80 backdrop-blur-md border-b border-primary/10 px-6 lg:px-20 py-4">
+        <div class="max-w-[1440px] mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-12">
+                <a href="index.html" class="flex items-center gap-2 cursor-pointer">
+                    <div class="size-8 bg-primary flex items-center justify-center rounded-lg text-white">
+                        <span class="material-symbols-outlined text-xl">explore</span>
+                    </div>
+                    <h1 class="text-2xl font-black tracking-tighter text-primary">BASTRIKA</h1>
+                </a>
+                <nav class="hidden lg:flex items-center gap-8 uppercase tracking-widest text-[10px] font-bold">
+                    <a class="hover:text-primary transition-colors" href="products.html?cat=women">Women</a>
+                    <a class="hover:text-primary transition-colors" href="products.html?cat=men">Men</a>
+                    <a class="hover:text-primary transition-colors" href="products.html?cat=kids">Kids</a>
+                    <a class="hover:text-primary transition-colors" href="brands.html">Brands</a>
+                </nav>
+            </div>
+            <div class="flex items-center gap-6">
+                <div class="relative hidden md:block">
+                    <span
+                        class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-primary/60 text-lg">search</span>
+                    <input
+                        class="pl-10 pr-4 py-2 bg-primary/5 border-none rounded-lg focus:ring-1 focus:ring-primary w-64 text-sm outline-none placeholder:text-primary/40"
+                        placeholder="Search collection..." type="text" />
+                </div>
+                <div class="flex items-center gap-4">
+                    <a href="login.html" class="p-2 hover:bg-primary/10 rounded-full transition-colors"><span
+                            class="material-symbols-outlined">person</span></a>
+                    <a href="cart.html" class="p-2 hover:bg-primary/10 rounded-full transition-colors relative">
+                        <span class="material-symbols-outlined">shopping_bag</span>
+                        <span id="cart-count"
+                            class="absolute top-1 right-1 size-4 bg-primary text-white text-[10px] flex items-center justify-center rounded-full">0</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-[1440px] mx-auto px-6 lg:px-20 py-8">
+        <!-- Breadcrumbs & Header -->
+        <div class="mb-10">
+            <nav class="flex items-center gap-2 text-xs uppercase tracking-widest text-primary/60 mb-4">
+                <a class="hover:text-primary transition-colors" href="index.html">Home</a>
+                <span class="material-symbols-outlined text-[10px]">chevron_right</span>
+                <span id="breadcrumb-cat" class="text-primary font-bold">Collection</span>
+            </nav>
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+                <div>
+                    <h2 id="cat-title" class="text-4xl lg:text-5xl font-black text-[#181111] tracking-tight mb-2">
+                        Heritage Collection</h2>
+                    <p class="text-primary/70 max-w-xl text-sm italic">Inspired by the timeless elegance of Bengal's
+                        rich textile history, reimagined for the modern luxury wardrobe.</p>
+                </div>
+                <div class="flex items-center gap-4 border-b border-primary/20 pb-2">
+                    <span id="item-count" class="text-xs font-bold uppercase tracking-tighter text-primary/60">Loading
+                        Masterpieces...</span>
+                    <div class="h-4 w-[1px] bg-primary/20"></div>
+                    <div class="flex items-center gap-1 cursor-pointer group">
+                        <span class="text-xs font-bold uppercase tracking-tighter">Sort By: Relevance</span>
+                        <span
+                            class="material-symbols-outlined text-sm group-hover:translate-y-0.5 transition-transform">expand_more</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-col lg:flex-row gap-12">
+            <!-- Sidebar Filters -->
+            <aside class="w-full lg:w-64 flex-shrink-0">
+                <div class="sticky top-28 space-y-8">
+                    <div>
+                        <h3
+                            class="text-xs font-black uppercase tracking-[0.2em] text-primary mb-6 flex items-center justify-between">
+                            Filter By
+                            <span
+                                class="material-symbols-outlined text-sm cursor-pointer hover:rotate-180 transition-transform duration-500">filter_list</span>
+                        </h3>
+                        <div class="space-y-6">
+                            <!-- Category -->
+                            <div class="border-b border-primary/10 pb-4">
+                                <div class="flex items-center justify-between mb-4 cursor-pointer">
+                                    <span class="text-sm font-bold uppercase tracking-widest">Category</span>
+                                    <span class="material-symbols-outlined text-sm">remove</span>
+                                </div>
+                                <div class="space-y-3">
+                                    <label
+                                        class="flex items-center gap-3 text-sm text-primary/80 cursor-pointer hover:text-primary">
+                                        <input class="rounded border-primary/20 text-primary focus:ring-primary size-4"
+                                            type="checkbox" />
+                                        <span>Silk Sarees</span>
+                                    </label>
+                                    <label
+                                        class="flex items-center gap-3 text-sm text-primary/80 cursor-pointer hover:text-primary">
+                                        <input class="rounded border-primary/20 text-primary focus:ring-primary size-4"
+                                            type="checkbox" />
+                                        <span>Jamdani</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button
+                        class="w-full py-3 bg-primary/5 hover:bg-primary/10 text-primary text-xs font-bold uppercase tracking-widest transition-colors rounded-lg">Clear
+                        All Filters</button>
+                </div>
+            </aside>
+
+            <!-- Product Grid -->
+            <div class="flex-1">
+                <div id="products-list"
+                    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10">
+                    <!-- Dynamic Items Load Here -->
+                </div>
+
+                <!-- Pagination / Load More -->
+                <div class="mt-20 flex flex-col items-center gap-6">
+                    <button
+                        class="px-10 py-4 border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all text-xs font-black uppercase tracking-[0.3em] rounded-lg">Load
+                        More Masterpieces</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-white mt-20 py-16 px-6 lg:px-20">
+        <div class="max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
+            <div class="space-y-6">
+                <h2 class="text-2xl font-black tracking-tighter">BASTRIKA</h2>
+                <p class="text-xs text-white/70 leading-relaxed uppercase tracking-widest">Preserving the soul of
+                    Bengali textile art through modern luxury design.</p>
+            </div>
+            <div class="space-y-4">
+                <h4 class="text-xs font-black uppercase tracking-[0.2em]">Shop</h4>
+                <nav class="flex flex-col gap-2 text-xs font-medium text-white/60">
+                    <a class="hover:text-white transition-colors" href="products.html?cat=women">Women's Collection</a>
+                    <a class="hover:text-white transition-colors" href="products.html?cat=men">Men's Panjabi</a>
+                </nav>
+            </div>
+        </div>
+        <div
+            class="max-w-[1440px] mx-auto mt-16 pt-8 border-t border-white/10 text-[10px] uppercase tracking-widest text-white/40">
+            <p>© 2026 Bastrika Luxury. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="assets/js/api.js"></script>
+    <script>
+        async function loadCategory() {
+            const params = new URLSearchParams(window.location.search);
+            const cat = params.get('cat') || '';
+            const brand = params.get('brand') || '';
+            const titleEl = document.getElementById('cat-title');
+            const breadcrumbEl = document.getElementById('breadcrumb-cat');
+
+            if (cat) {
+                const displayTitle = cat.charAt(0).toUpperCase() + cat.slice(1);
+                titleEl.innerText = displayTitle;
+                breadcrumbEl.innerText = displayTitle;
+            } else if (brand) {
+                const displayTitle = brand.toUpperCase();
+                titleEl.innerText = displayTitle;
+                breadcrumbEl.innerText = displayTitle;
+            }
+
+            try {
+                const products = await api.getProducts(cat || brand);
+                const container = document.getElementById('products-list');
+                const countEl = document.getElementById('item-count');
+
+                countEl.innerText = `${products.length} Masterpieces Found`;
+
+                if (products.length === 0) {
+                    container.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 4rem;"><h3>No products found in this category.</h3></div>';
+                    return;
+                }
+
+                container.innerHTML = products.map((p, index) => `
+                    <div class="product-card group cursor-pointer" onclick="window.location.href='product.html?id=${p.id}'">
+                        <div class="relative aspect-[3/4] overflow-hidden bg-primary/5 rounded-lg mb-4">
+                            <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="${p.image_url}" alt="${p.name}">
+                            <button class="absolute top-4 right-4 p-2 bg-white/80 hover:bg-white rounded-full transition-colors text-primary shadow-sm" onclick="event.stopPropagation();">
+                                <span class="material-symbols-outlined text-lg">favorite</span>
+                            </button>
+                            <div class="quick-add-btn absolute bottom-0 left-0 right-0 p-4">
+                                <button class="w-full py-3 bg-primary text-white text-[10px] font-bold uppercase tracking-widest rounded shadow-xl hover:bg-primary/90" onclick="event.stopPropagation(); api.addToCart('${p.id}', '${p.name}', ${p.price}, '${p.image_url}')">Quick Add</button>
+                            </div>
+                        </div>
+                        <div class="space-y-1">
+                            <p class="text-[10px] uppercase tracking-widest text-primary/60 font-bold">${p.category || 'Collection'}</p>
+                            <h3 class="text-sm font-medium text-[#181111] group-hover:text-primary transition-colors uppercase tracking-tight">${p.name}</h3>
+                            <p class="text-sm font-black text-primary">₹${p.price}</p>
+                        </div>
+                    </div>
+                `).join('');
+
+                api.updateCartCount();
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        window.onload = loadCategory;
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Sign In | Bastrika Luxury</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&family=Noto+Sans:wght@400;500;600&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#6c1e1e",
+                        "accent-gold": "#C6A75E",
+                        "background-light": "#f8f6f6",
+                    },
+                    fontFamily: {
+                        "display": ["Noto Serif", "serif"],
+                        "sans": ["Noto Sans", "sans-serif"]
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Noto Sans', sans-serif;
+        }
+
+        .serif-font {
+            font-family: 'Noto Serif', serif;
+        }
+    </style>
+</head>
+
+<body class="bg-background-light text-[#171212] flex flex-col min-h-screen">
+    <!-- Navigation Header -->
+    <header class="bg-white/80 backdrop-blur-md border-b border-primary/10">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary text-2xl">auto_awesome</span>
+                <h1 class="text-xl font-bold tracking-tighter text-primary serif-font">Bastrika</h1>
+            </a>
+            <nav class="hidden md:flex gap-8 text-[10px] uppercase tracking-widest font-bold">
+                <a class="hover:text-primary transition-colors" href="products.html?cat=women">Women</a>
+                <a class="hover:text-primary transition-colors" href="products.html?cat=men">Men</a>
+                <a class="hover:text-primary transition-colors" href="brands.html">Brands</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="flex-1 flex items-center justify-center p-6">
+        <div class="max-w-md w-full bg-white rounded-2xl shadow-2xl shadow-primary/5 p-10 border border-primary/5">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold serif-font text-primary mb-2">Welcome Back</h2>
+                <div class="w-12 h-0.5 bg-accent-gold mx-auto"></div>
+                <p class="text-sm text-primary/60 mt-4 leading-relaxed italic">Enter the world of timeless luxury and
+                    artisanal heritage.</p>
+            </div>
+
+            <form id="login-form" class="space-y-6">
+                <div class="space-y-2">
+                    <label class="text-xs font-bold uppercase tracking-widest text-primary/70">Email Address</label>
+                    <input id="email" required
+                        class="w-full px-5 py-4 rounded-xl border-primary/10 bg-primary/5 focus:ring-accent-gold focus:border-accent-gold transition-all text-sm"
+                        placeholder="your@email.com" type="email" />
+                </div>
+                <div class="space-y-2">
+                    <div class="flex justify-between items-center">
+                        <label class="text-xs font-bold uppercase tracking-widest text-primary/70">Password</label>
+                        <a href="#"
+                            class="text-[10px] uppercase font-bold text-accent-gold hover:text-primary transition-colors">Forgot?</a>
+                    </div>
+                    <input id="password" required
+                        class="w-full px-5 py-4 rounded-xl border-primary/10 bg-primary/5 focus:ring-accent-gold focus:border-accent-gold transition-all text-sm"
+                        placeholder="••••••••" type="password" />
+                </div>
+
+                <button type="submit"
+                    class="w-full bg-primary hover:bg-primary/95 text-white py-4 rounded-xl font-bold tracking-widest uppercase text-xs transition-all shadow-lg active:scale-[0.98]">
+                    Sign In to Bastrika
+                </button>
+            </form>
+
+            <div class="mt-10 pt-8 border-t border-primary/5 flex flex-col items-center gap-4 text-center">
+                <p class="text-xs text-primary/60">New to the House of Bastrika?</p>
+                <a href="register.html"
+                    class="text-xs font-bold uppercase tracking-[0.2em] text-accent-gold hover:text-primary transition-colors border-b border-accent-gold pb-1">
+                    Create Your Account
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="py-10 text-center text-[10px] uppercase tracking-widest text-primary/40">
+        © 2026 Bastrika Luxury. All Rights Reserved.
+    </footer>
+
+    <script src="assets/js/api.js"></script>
+    <script>
+        document.getElementById('login-form').onsubmit = async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            try {
+                const res = await api.login(email, password);
+                if (res.token) {
+                    window.location.href = res.user.role === 'admin' ? 'admin/dashboard.html' : 'index.html';
+                } else {
+                    alert(res.message);
+                }
+            } catch (err) {
+                alert('Login failed');
+            }
+        };
+    </script>
+</body>
+
+</html>

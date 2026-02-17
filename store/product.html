@@ -1,0 +1,200 @@
+<!-- Product Details Page - Desktop -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Product Details | Bastrika</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&family=Noto+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#d11515",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#211111",
+                    },
+                    fontFamily: {
+                        "display": ["Noto Serif", "serif"],
+                        "sans": ["Noto Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Noto Sans', sans-serif;
+        }
+
+        h1,
+        h2,
+        h3,
+        .font-serif {
+            font-family: 'Noto Serif', serif;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark text-[#181111] dark:text-[#f4f0f0] min-h-screen">
+    <!-- Navigation -->
+    <header
+        class="sticky top-0 z-50 bg-background-light/90 dark:bg-background-dark/90 backdrop-blur-md border-b border-primary/10 px-6 lg:px-20 py-4">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-12">
+                <a href="index.html" class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary text-3xl">flare</span>
+                    <h1 class="text-2xl font-bold tracking-tight text-[#181111] dark:text-white">Bastrika</h1>
+                </a>
+                <nav class="hidden md:flex items-center gap-8">
+                    <a class="text-sm font-medium hover:text-primary transition-colors"
+                        href="products.html?cat=women">Women</a>
+                    <a class="text-sm font-medium hover:text-primary transition-colors"
+                        href="products.html?cat=men">Men</a>
+                    <a class="text-sm font-medium hover:text-primary transition-colors"
+                        href="products.html?cat=kids">Kids</a>
+                    <a class="text-sm font-medium hover:text-primary transition-colors" href="brands.html">Brands</a>
+                </nav>
+            </div>
+            <div class="flex items-center gap-6">
+                <a href="cart.html" class="hover:text-primary transition-colors relative">
+                    <span class="material-symbols-outlined">shopping_bag</span>
+                    <span id="cart-count"
+                        class="absolute -top-1 -right-1 bg-primary text-white text-[10px] rounded-full size-4 flex items-center justify-center font-bold">0</span>
+                </a>
+                <a href="login.html"
+                    class="size-8 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center overflow-hidden">
+                    <span class="material-symbols-outlined text-primary">person</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6 lg:px-20 py-8">
+        <!-- Breadcrumbs -->
+        <nav class="flex items-center gap-2 text-xs uppercase tracking-widest text-gray-500 mb-8">
+            <a class="hover:text-primary" href="index.html">Home</a>
+            <span class="material-symbols-outlined text-[10px]">chevron_right</span>
+            <a id="breadcrumb-cat" class="hover:text-primary" href="products.html">Collection</a>
+            <span class="material-symbols-outlined text-[10px]">chevron_right</span>
+            <span id="breadcrumb-name" class="text-primary font-bold">Product</span>
+        </nav>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            <!-- Left Side: Image Gallery -->
+            <div class="lg:col-span-7 grid grid-cols-12 gap-4">
+                <div class="col-span-12 relative group">
+                    <div class="aspect-[3/4] rounded-xl overflow-hidden bg-white dark:bg-[#1a0f0f]">
+                        <img id="product-img" class="w-full h-full object-cover" src="" alt="Product view">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side: Product Details -->
+            <div class="lg:col-span-5 flex flex-col gap-8 lg:sticky lg:top-28">
+                <div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <span id="product-cat"
+                            class="px-2 py-0.5 bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-widest rounded">Heritage
+                            Collection</span>
+                    </div>
+                    <h1 id="product-name" class="text-4xl font-bold leading-tight mb-2">Loading...</h1>
+                </div>
+                <div class="flex items-baseline gap-4">
+                    <span id="product-price" class="text-3xl font-bold text-primary font-serif">₹0</span>
+                    <span class="text-lg text-gray-400 line-through" id="old-price"></span>
+                </div>
+
+                <div class="space-y-4">
+                    <div id="stock-status" class="flex items-center gap-2 text-primary font-medium text-sm">
+                        <!-- Stock info -->
+                    </div>
+                    <div class="flex gap-4">
+                        <button id="add-to-cart-btn"
+                            class="flex-1 bg-primary text-white py-4 rounded-xl font-bold text-lg hover:shadow-lg hover:shadow-primary/20 transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+                            <span class="material-symbols-outlined">shopping_cart</span>
+                            Add to Bag
+                        </button>
+                    </div>
+                </div>
+
+                <div class="space-y-6 pt-6 border-t border-primary/10">
+                    <h3 class="text-2xl font-bold">Description</h3>
+                    <p id="product-desc" class="text-gray-600 dark:text-gray-400 leading-relaxed"></p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-[#1a0f0f] border-t border-primary/10 py-12 px-6 lg:px-20 mt-24">
+        <div class="max-w-7xl mx-auto text-center">
+            <h2 class="text-xl font-bold tracking-tight mb-4">Bastrika</h2>
+            <p class="text-sm text-gray-400">© 2026 Bastrika Luxury Handloom. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="assets/js/api.js"></script>
+    <script>
+        let currentProduct = null;
+
+        async function loadProduct() {
+            const params = new URLSearchParams(window.location.search);
+            const id = params.get('id');
+            if (!id) return window.location.href = 'products.html';
+
+            try {
+                const product = await api.getProduct(id);
+                if (!product) return;
+                currentProduct = product;
+
+                document.title = `${product.name} | Bastrika`;
+                document.getElementById('product-name').innerText = product.name;
+                document.getElementById('breadcrumb-name').innerText = product.name;
+                document.getElementById('product-price').innerText = `₹${product.price}`;
+                document.getElementById('product-img').src = product.image_url;
+                document.getElementById('product-desc').innerText = product.description;
+                document.getElementById('product-cat').innerText = product.category || 'General';
+
+                if (product.stock > 0) {
+                    document.getElementById('stock-status').innerHTML = `<span class="material-symbols-outlined text-lg">inventory_2</span> ${product.stock} pieces left in stock!`;
+                } else {
+                    document.getElementById('stock-status').innerHTML = `<span class="text-red-600">Out of Stock</span>`;
+                    document.getElementById('add-to-cart-btn').disabled = true;
+                    document.getElementById('add-to-cart-btn').classList.add('opacity-50');
+                }
+
+                document.getElementById('add-to-cart-btn').onclick = () => {
+                    api.addToCart(product.id, product.name, product.price, product.image_url);
+                    api.updateCartCount();
+                };
+
+                api.updateCartCount();
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        window.onload = loadProduct;
+    </script>
+</body>
+
+</html>

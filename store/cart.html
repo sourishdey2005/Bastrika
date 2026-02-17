@@ -1,0 +1,236 @@
+<!-- Shopping Cart & Checkout - Desktop -->
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Shopping Bag | Bastrika</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#d41111",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#120808",
+                        "surface-dark": "#1e0f0f",
+                        "border-dark": "#321a1a",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Manrope', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white min-h-screen">
+    <!-- Top Navigation Bar -->
+    <header
+        class="sticky top-0 z-50 w-full border-b border-border-dark bg-background-dark/80 backdrop-blur-md px-6 lg:px-20 py-4">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-3">
+                <div class="text-primary">
+                    <svg class="w-8 h-8" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                        <path clip-rule="evenodd"
+                            d="M12.0799 24L4 19.2479L9.95537 8.75216L18.04 13.4961L18.0446 4H29.9554L29.96 13.4961L38.0446 8.75216L44 19.2479L35.92 24L44 28.7521L38.0446 39.2479L29.96 34.5039L29.9554 44H18.0446L18.04 34.5039L9.95537 39.2479L4 28.7521L12.0799 24Z"
+                            fill="currentColor" fill-rule="evenodd"></path>
+                    </svg>
+                </div>
+                <h1 class="text-2xl font-extrabold tracking-tighter uppercase text-white">Bastrika</h1>
+            </a>
+            <div class="flex items-center gap-6">
+                <a href="login.html"
+                    class="w-10 h-10 rounded-full border border-border-dark flex items-center justify-center">
+                    <span class="material-symbols-outlined text-white">person</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6 lg:px-20 py-12">
+        <div class="flex items-center gap-2 text-sm text-slate-400 mb-8">
+            <a class="hover:text-white transition-colors" href="index.html">Home</a>
+            <span class="material-symbols-outlined text-xs">chevron_right</span>
+            <span class="text-white font-semibold">Shopping Bag</span>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            <div class="lg:col-span-8 space-y-10">
+                <div>
+                    <h2 class="text-4xl font-black tracking-tight mb-2">Your Collection</h2>
+                    <p id="bag-status" class="text-slate-400">Loading your luxury bag...</p>
+                </div>
+
+                <!-- Bag Items -->
+                <div id="cart-items" class="space-y-6">
+                    <!-- Items load here -->
+                </div>
+
+                <!-- Shipping Details -->
+                <div class="bg-surface-dark/20 rounded-2xl p-8 border border-border-dark">
+                    <div class="flex items-center gap-3 mb-8">
+                        <span class="material-symbols-outlined text-primary">local_shipping</span>
+                        <h3 class="text-xl font-bold">Delivery Address</h3>
+                    </div>
+                    <form id="checkout-form" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="col-span-2">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Full
+                                Name</label>
+                            <input id="name" required
+                                class="w-full bg-background-dark border-border-dark rounded-lg px-4 py-3 focus:ring-primary focus:border-primary transition-all text-white"
+                                placeholder="Arshad Khan" type="text" />
+                        </div>
+                        <div class="col-span-2">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Street
+                                Address</label>
+                            <input id="address" required
+                                class="w-full bg-background-dark border-border-dark rounded-lg px-4 py-3 focus:ring-primary focus:border-primary transition-all text-white"
+                                placeholder="House 42, Road 12, Banani" type="text" />
+                        </div>
+                        <div>
+                            <label
+                                class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">City</label>
+                            <input id="city" required
+                                class="w-full bg-background-dark border-border-dark rounded-lg px-4 py-3 focus:ring-primary focus:border-primary transition-all text-white"
+                                placeholder="Dhaka" type="text" />
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Phone
+                                Number</label>
+                            <input id="phone" required
+                                class="w-full bg-background-dark border-border-dark rounded-lg px-4 py-3 focus:ring-primary focus:border-primary transition-all text-white"
+                                placeholder="+880 1XXX XXXXXX" type="tel" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Summary -->
+            <div class="lg:col-span-4 sticky top-28">
+                <div class="bg-surface-dark rounded-2xl border border-border-dark p-8 shadow-2xl">
+                    <h3 class="text-xl font-bold mb-8">Order Summary</h3>
+                    <div class="space-y-4 mb-8">
+                        <div class="flex justify-between text-slate-400">
+                            <span>Subtotal</span>
+                            <span id="subtotal" class="text-white font-medium">₹ 0</span>
+                        </div>
+                        <div class="flex justify-between text-slate-400">
+                            <span>Shipping</span>
+                            <span class="text-white font-medium">FREE</span>
+                        </div>
+                        <div class="h-px bg-border-dark my-2"></div>
+                        <div class="flex justify-between items-end">
+                            <span class="text-lg font-bold">Total</span>
+                            <span id="total" class="text-3xl font-black text-primary">₹ 0</span>
+                        </div>
+                    </div>
+                    <button id="place-order-btn"
+                        class="w-full bg-primary hover:bg-red-700 text-white py-4 rounded-xl font-black tracking-widest uppercase transition-colors flex items-center justify-center gap-3">
+                        Place Order
+                        <span class="material-symbols-outlined">lock</span>
+                    </button>
+                    <p class="text-[10px] text-center text-slate-500 uppercase tracking-widest mt-4">Secure 256-bit SSL
+                        Encrypted Payment</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="assets/js/api.js"></script>
+    <script>
+        function loadCart() {
+            const items = api.getCart();
+            const container = document.getElementById('cart-items');
+            const statusEl = document.getElementById('bag-status');
+
+            if (items.length === 0) {
+                statusEl.innerText = "Your luxury bag is currently empty.";
+                container.innerHTML = '<div class="text-center py-12"><a href="products.html" class="text-primary font-bold uppercase tracking-widest">Discover Masterpieces</a></div>';
+                return;
+            }
+
+            statusEl.innerText = `You have ${items.length} items in your luxury bag`;
+
+            let subtotal = 0;
+            container.innerHTML = items.map(item => {
+                subtotal += item.price * (item.quantity || 1);
+                return `
+                    <div class="flex flex-col sm:flex-row gap-6 p-4 rounded-xl bg-surface-dark/40 border border-border-dark hover:border-primary/30 transition-all group">
+                        <div class="w-full sm:w-32 h-40 rounded-lg overflow-hidden flex-shrink-0">
+                            <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="${item.image_url}" alt="${item.name}">
+                        </div>
+                        <div class="flex flex-col flex-1 justify-between py-1">
+                            <div class="flex justify-between items-start text-white">
+                                <div>
+                                    <h3 class="text-lg font-bold">${item.name}</h3>
+                                    <p class="text-sm text-slate-400 mt-1">Quantity: ${item.quantity || 1}</p>
+                                </div>
+                                <button onclick="removeFromCart('${item.id}')" class="text-slate-500 hover:text-primary transition-colors">
+                                    <span class="material-symbols-outlined">delete</span>
+                                </button>
+                            </div>
+                            <div class="flex justify-end items-end mt-4">
+                                <span class="text-xl font-black text-white">₹${item.price * (item.quantity || 1)}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('subtotal').innerText = `₹ ${subtotal}`;
+            document.getElementById('total').innerText = `₹ ${subtotal}`;
+        }
+
+        function removeFromCart(id) {
+            let cart = api.getCart();
+            cart = cart.filter(p => p.id !== id);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            loadCart();
+        }
+
+        document.getElementById('place-order-btn').onclick = async () => {
+            const cart = api.getCart();
+            if (cart.length === 0) return alert('Your bag is empty');
+
+            const addressDetails = {
+                name: document.getElementById('name').value,
+                street: document.getElementById('address').value,
+                city: document.getElementById('city').value,
+                phone: document.getElementById('phone').value
+            };
+
+            if (!addressDetails.name || !addressDetails.street || !addressDetails.city || !addressDetails.phone) {
+                return alert('Please complete the delivery address');
+            }
+
+            try {
+                // Here we would call the order API, but for now we simulate success
+                // api.placeOrder(addressDetails, cart)
+                localStorage.removeItem('cart');
+                window.location.href = 'order-success.html';
+            } catch (err) {
+                console.error(err);
+                alert('Checkout failed');
+            }
+        };
+
+        window.onload = loadCart;
+    </script>
+</body>
+
+</html>

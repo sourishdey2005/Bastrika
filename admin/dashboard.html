@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard | Bastrika</title>
+    <link rel="stylesheet" href="assets/css/admin.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="sidebar">
+        <h2>BASTRIKA ADMIN</h2>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="products.html">Products</a>
+        <a href="orders.html">Orders</a>
+        <a href="#" onclick="logout()">Logout</a>
+    </div>
+
+    <main class="main-content">
+        <h1>Dashboard Overview</h1>
+        <br>
+        <div class="stats-grid" id="stats-grid">
+            <div class="stat-card">
+                <h3>Total Orders</h3>
+                <p id="total-orders">0</p>
+            </div>
+            <div class="stat-card">
+                <h3>Total Revenue</h3>
+                <p id="total-revenue">₹0</p>
+            </div>
+            <div class="stat-card">
+                <h3>Products</h3>
+                <p id="total-products">0</p>
+            </div>
+            <div class="stat-card">
+                <h3>Pending</h3>
+                <p id="pending-orders">0</p>
+            </div>
+        </div>
+
+        <div style="background: white; padding: 2rem; border-radius: 8px;">
+            <h3>Sales Performance</h3>
+            <canvas id="salesChart"></canvas>
+        </div>
+    </main>
+
+    <script>
+        const API_URL = 'http://localhost:5000/api';
+        const token = localStorage.getItem('token');
+
+        if (!token) window.location.href = '../store/login.html';
+
+        async function loadStats() {
+            try {
+                const res = await fetch(`${API_URL}/admin/stats`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const stats = await res.json();
+                document.getElementById('total-orders').innerText = stats.totalOrders;
+                document.getElementById('total-revenue').innerText = `₹${stats.totalRevenue}`;
+                document.getElementById('total-products').innerText = stats.totalProducts;
+                document.getElementById('pending-orders').innerText = stats.pendingOrders;
+
+                initChart();
+            } catch (err) { console.error(err); }
+        }
+
+        function initChart() {
+            const ctx = document.getElementById('salesChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    datasets: [{
+                        label: 'Revenue',
+                        data: [12000, 19000, 3000, 5000, 20000, 30000],
+                        borderColor: '#800000',
+                        tension: 0.1
+                    }]
+                }
+            });
+        }
+
+        function logout() {
+            localStorage.removeItem('token');
+            window.location.href = '../store/login.html';
+        }
+
+        window.onload = loadStats;
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,139 @@
+<!-- Seller Dashboard Overview - Desktop -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Dashboard | Bastrika Seller</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#d41111",
+                        "background-light": "#fdfbf7",
+                        "background-dark": "#221010",
+                        "charcoal": "#2E2E2E",
+                        "ivory": "#FAF9F6",
+                        "gold": "#D4AF37",
+                        "neutral-muted": "#f2eee9",
+                    },
+                    fontFamily: { "display": ["Inter", "sans-serif"] },
+                },
+            },
+        }
+    </script>
+    <style>
+        .sidebar-item-active {
+            background-color: rgba(212, 17, 17, 0.15);
+            border-left: 3px solid #d41111;
+        }
+    </style>
+</head>
+
+<body class="font-display text-charcoal bg-background-light">
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-charcoal flex flex-col h-full shadow-2xl">
+            <div class="p-6 flex items-center gap-3">
+                <div class="size-10 bg-primary rounded-lg flex items-center justify-center text-ivory">
+                    <span class="material-symbols-outlined text-2xl">diamond</span>
+                </div>
+                <h1 class="text-ivory text-xl font-bold tracking-tight">Bastrika</h1>
+            </div>
+            <nav class="flex-1 px-4 py-6 space-y-2">
+                <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-ivory sidebar-item-active group transition-all"
+                    href="dashboard.html">
+                    <span class="material-symbols-outlined">dashboard</span>
+                    <span class="text-sm font-medium">Dashboard</span>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-ivory/70 hover:bg-white/5 hover:text-ivory group transition-all"
+                    href="products.html">
+                    <span class="material-symbols-outlined">inventory_2</span>
+                    <span class="text-sm font-medium">Inventory</span>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-ivory/70 hover:bg-white/5 hover:text-ivory group transition-all"
+                    href="orders.html">
+                    <span class="material-symbols-outlined">shopping_bag</span>
+                    <span class="text-sm font-medium">Orders</span>
+                </a>
+            </nav>
+            <div class="p-4 border-t border-white/10">
+                <button
+                    class="flex items-center gap-3 px-4 py-3 w-full text-ivory/70 hover:text-primary transition-colors">
+                    <span class="material-symbols-outlined">logout</span>
+                    <span class="text-sm font-medium">Logout</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 flex flex-col overflow-y-auto">
+            <header
+                class="h-16 bg-white border-b border-neutral-muted px-8 flex items-center justify-between sticky top-0 z-10">
+                <h2 class="text-lg font-bold">Seller Dashboard</h2>
+                <div class="flex items-center gap-4">
+                    <div class="text-right">
+                        <p id="seller-name" class="text-sm font-bold">Store Admin</p>
+                    </div>
+                </div>
+            </header>
+
+            <div class="p-8 space-y-8">
+                <!-- KPI Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="bg-white p-6 rounded-xl border border-neutral-muted shadow-sm">
+                        <p class="text-charcoal/50 text-sm font-medium">Total Revenue</p>
+                        <h3 id="stat-revenue" class="text-2xl font-bold text-charcoal mt-1">₹ 0</h3>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl border border-neutral-muted shadow-sm">
+                        <p class="text-charcoal/50 text-sm font-medium">Total Orders</p>
+                        <h3 id="stat-orders" class="text-2xl font-bold text-charcoal mt-1">0</h3>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl border border-neutral-muted shadow-sm">
+                        <p class="text-charcoal/50 text-sm font-medium">Active Products</p>
+                        <h3 id="stat-products" class="text-2xl font-bold text-charcoal mt-1">0</h3>
+                    </div>
+                </div>
+
+                <!-- Chart -->
+                <div class="bg-white p-8 rounded-xl border border-neutral-muted shadow-sm">
+                    <h3 class="text-lg font-bold mb-8">Sales Performance</h3>
+                    <div class="relative w-full h-72">
+                        <svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 1000 300">
+                            <path
+                                d="M 0 240 C 100 230 150 210 200 180 C 300 120 400 250 500 220 C 650 180 750 80 850 60 L 1000 40"
+                                fill="none" stroke="#d41111" stroke-width="4"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../assets/js/api.js"></script>
+    <script>
+        async function loadStats() {
+            try {
+                const products = await api.getProducts();
+                document.getElementById('stat-products').innerText = products.length;
+
+                // For demo purposes, we'll set some random stats since we don't have a summary API yet
+                document.getElementById('stat-revenue').innerText = "₹ 1,54,200";
+                document.getElementById('stat-orders').innerText = "124";
+            } catch (err) {
+                console.error(err);
+            }
+        }
+        window.onload = loadStats;
+    </script>
+</body>
+
+</html>

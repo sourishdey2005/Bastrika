@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Brand Partners | Bastrika Luxury</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&family=Noto+Sans:wght@400;500;600&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#6c1e1e",
+                        "accent-gold": "#C6A75E",
+                        "background-light": "#f8f6f6",
+                    },
+                    fontFamily: {
+                        "display": ["Noto Serif", "serif"],
+                        "sans": ["Noto Sans", "sans-serif"]
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Noto Sans', sans-serif;
+        }
+
+        .serif-font {
+            font-family: 'Noto Serif', serif;
+        }
+
+        .brand-hover:hover h3 {
+            color: #6c1e1e;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body class="bg-background-light text-[#171212] flex flex-col min-h-screen">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-primary/10">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary text-2xl">auto_awesome</span>
+                <h1 class="text-xl font-bold tracking-tighter text-primary serif-font">Bastrika</h1>
+            </a>
+            <nav class="hidden lg:flex items-center gap-10">
+                <a class="text-xs font-bold uppercase tracking-widest hover:text-primary transition-colors"
+                    href="products.html?cat=women">Women</a>
+                <a class="text-xs font-bold uppercase tracking-widest hover:text-primary transition-colors"
+                    href="products.html?cat=men">Men</a>
+                <a class="text-xs font-bold uppercase tracking-widest text-primary border-b border-primary pb-1"
+                    href="brands.html">Brands</a>
+            </nav>
+            <div class="flex items-center gap-6 text-primary">
+                <a href="cart.html" class="relative">
+                    <span class="material-symbols-outlined">shopping_bag</span>
+                    <span id="cart-count"
+                        class="absolute -top-1 -right-1 bg-accent-gold text-white text-[9px] w-3.5 h-3.5 rounded-full flex items-center justify-center font-bold">0</span>
+                </a>
+                <a href="login.html"><span class="material-symbols-outlined">person</span></a>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1">
+        <!-- Brand Hero -->
+        <section class="py-24 bg-primary text-white text-center px-6">
+            <div class="max-w-3xl mx-auto space-y-4">
+                <span class="text-accent-gold uppercase tracking-[0.4em] text-xs font-bold">The Curated House</span>
+                <h2 class="text-4xl md:text-5xl lg:text-6xl serif-font italic">Our Brand Partners</h2>
+                <p class="text-white/60 text-sm md:text-base font-light italic max-w-lg mx-auto leading-relaxed">
+                    A selection of the world's most distinguished heritage and global designers, curated exclusively for
+                    the Bastrika connoisseur.
+                </p>
+            </div>
+        </section>
+
+        <!-- Brand Grid -->
+        <section class="py-24 px-6 lg:px-12 max-w-7xl mx-auto">
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                <!-- Brand Cards -->
+                <a href="products.html?brand=vogue"
+                    class="group brand-hover relative aspect-square bg-white border border-primary/5 rounded-2xl flex flex-col items-center justify-center transition-all hover:shadow-2xl hover:shadow-primary/5 overflow-hidden">
+                    <div
+                        class="absolute inset-x-0 bottom-0 h-1 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform">
+                    </div>
+                    <h3
+                        class="text-2xl font-black tracking-tighter text-primary/30 transition-all duration-500 serif-font">
+                        VOGUE</h3>
+                    <span
+                        class="mt-4 text-[10px] uppercase tracking-widest font-bold text-accent-gold opacity-0 group-hover:opacity-100 transition-opacity">Explore</span>
+                </a>
+                <a href="products.html?brand=ethnic"
+                    class="group brand-hover relative aspect-square bg-white border border-primary/5 rounded-2xl flex flex-col items-center justify-center transition-all hover:shadow-2xl hover:shadow-primary/5 overflow-hidden">
+                    <div
+                        class="absolute inset-x-0 bottom-0 h-1 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform">
+                    </div>
+                    <h3
+                        class="text-2xl font-black tracking-tighter text-primary/30 transition-all duration-500 serif-font">
+                        ETHNIC</h3>
+                    <span
+                        class="mt-4 text-[10px] uppercase tracking-widest font-bold text-accent-gold opacity-0 group-hover:opacity-100 transition-opacity">Explore</span>
+                </a>
+                <a href="products.html?brand=urban"
+                    class="group brand-hover relative aspect-square bg-white border border-primary/5 rounded-2xl flex flex-col items-center justify-center transition-all hover:shadow-2xl hover:shadow-primary/5 overflow-hidden">
+                    <div
+                        class="absolute inset-x-0 bottom-0 h-1 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform">
+                    </div>
+                    <h3
+                        class="text-2xl font-black tracking-tighter text-primary/30 transition-all duration-500 serif-font">
+                        URBAN</h3>
+                    <span
+                        class="mt-4 text-[10px] uppercase tracking-widest font-bold text-accent-gold opacity-0 group-hover:opacity-100 transition-opacity">Explore</span>
+                </a>
+                <a href="products.html?brand=heritage"
+                    class="group brand-hover relative aspect-square bg-white border border-primary/5 rounded-2xl flex flex-col items-center justify-center transition-all hover:shadow-2xl hover:shadow-primary/5 overflow-hidden">
+                    <div
+                        class="absolute inset-x-0 bottom-0 h-1 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform">
+                    </div>
+                    <h3
+                        class="text-2xl font-black tracking-tighter text-primary/30 transition-all duration-500 serif-font">
+                        HERITAGE</h3>
+                    <span
+                        class="mt-4 text-[10px] uppercase tracking-widest font-bold text-accent-gold opacity-0 group-hover:opacity-100 transition-opacity">Explore</span>
+                </a>
+                <a href="products.html?brand=zen"
+                    class="group brand-hover relative aspect-square bg-white border border-primary/5 rounded-2xl flex flex-col items-center justify-center transition-all hover:shadow-2xl hover:shadow-primary/5 overflow-hidden">
+                    <div
+                        class="absolute inset-x-0 bottom-0 h-1 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform">
+                    </div>
+                    <h3
+                        class="text-2xl font-black tracking-tighter text-primary/30 transition-all duration-500 serif-font">
+                        ZEN</h3>
+                    <span
+                        class="mt-4 text-[10px] uppercase tracking-widest font-bold text-accent-gold opacity-0 group-hover:opacity-100 transition-opacity">Explore</span>
+                </a>
+                <a href="products.html?brand=bloom"
+                    class="group brand-hover relative aspect-square bg-white border border-primary/5 rounded-2xl flex flex-col items-center justify-center transition-all hover:shadow-2xl hover:shadow-primary/5 overflow-hidden">
+                    <div
+                        class="absolute inset-x-0 bottom-0 h-1 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform">
+                    </div>
+                    <h3
+                        class="text-2xl font-black tracking-tighter text-primary/30 transition-all duration-500 serif-font">
+                        BLOOM</h3>
+                    <span
+                        class="mt-4 text-[10px] uppercase tracking-widest font-bold text-accent-gold opacity-0 group-hover:opacity-100 transition-opacity">Explore</span>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-background-light dark:bg-background-dark border-t border-primary/5 py-12">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <h4 class="text-xl font-bold tracking-tighter text-primary serif-font mb-4">Bastrika</h4>
+            <p class="text-[10px] uppercase tracking-[0.3em] text-primary/40 font-bold">© 2026 Bastrika Luxury. All
+                Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="assets/js/api.js"></script>
+    <script>
+        window.onload = () => {
+            api.updateCartCount();
+        };
+    </script>
+</body>
+
+</html>
